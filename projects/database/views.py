@@ -18,6 +18,8 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+
+            
             return redirect('/')
         else:
             return render(request, 'signup.html', {'form': form})
@@ -37,7 +39,10 @@ def signin(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/profile') #profile
+            if user.is_staff == 1:
+                return redirect('/profile/admin')  # Redirect to admin page
+            else:
+                return redirect('/profile/staff')  # Redirect to staff page
         else:
             msg = 'Error Login'
             form = AuthenticationForm(request.POST)
@@ -48,8 +53,26 @@ def signin(request):
     
 
 def profile(request):
+    render(request, 'evaluationpart1.html')
     return render(request, 'profile.html')
 
 def signout(request):
     logout(request)
     return redirect('/')
+
+def evaluationpart1(request):
+    return render(request, 'evaluationpart1.html')
+
+def evaluationpart2(request):
+    return render(request, 'evaluationpart2.html')
+
+def admin(request):
+    return render(request, 'admin.html')
+
+def staff(request):
+    return render(request, 'staff.html')
+
+def trainingcourseoverview(request):
+    return render(request, 'trainingcourseoverview.html')
+def trainingcoursedetails(request):
+    return render(request, 'trainingcoursedetails.html')
