@@ -72,7 +72,25 @@ def admin(request):
 def staff(request):
     return render(request, 'staff.html')
 
+def employeepersonaldetailspart1(request):
+    return render(request, 'employeepersonaldetailspart1.html')
+def employeepersonaldetailspart2(request):
+    return render(request, 'employeepersonaldetails2.html')
+
 def trainingcourseoverview(request):
     return render(request, 'trainingcourseoverview.html')
 def trainingcoursedetails(request):
     return render(request, 'trainingcoursedetails.html')
+
+def employeeregistration(request):
+    return render(request, 'employeeregistration.html')
+def programregistration(request):
+    return render(request, 'programregistration.html')
+
+
+# Staff Section Pages
+def application(request):
+    return render(request, 'application.html')
+    
+def pendingapplication(request):
+    return render(request, 'pendingapplication.html')

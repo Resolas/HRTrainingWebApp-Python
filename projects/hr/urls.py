@@ -27,17 +27,39 @@ urlpatterns = [
     path('signout/',views.signout, name='signout'),
     path('profile/',views.profile, name='profile'),
 
+
+    # Admin Section
     path('profile/admin/', views.admin, name='admin'),
+
+    path('profile/admin/application', views.application, name='application'),
+
+    path('profile/admin/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
+
+    path('profile/admin/employeeregistration', views.employeeregistration, name='employeeregistration'),
 
     path('profile/admin/evaluationpart1/',
          views.evaluationpart1, name='evaluationpart1'),
-
-
     path('profile/admin/evaluationpart1/evaluationpart2/',
           views.evaluationpart2, name='evaluationpart2'),
+
+    path('profile/admin/employeepersonaldetailspart1/', views.employeepersonaldetailspart1,
+        name='employeepersonaldetailspart1'),
+    path('profile/admin/employeepersonaldetails2/', views.employeepersonaldetailspart1,
+        name='employeepersonaldetails2'),
 
     path('profile/admin/trainingcourseoverview/', views.trainingcourseoverview, name='trainingcourseoverview.html'),
     path('profile/admin/trainingcourseoverview/trainingcoursedetails/', views.trainingcoursedetails, name='trainingcoursedetails.html'),
 
+
+    # Staff Section
     path('profile/staff/', views.staff, name='staff.html'),
+
+    path('profile/staff/application/', views.application, name='application.html'),
+
+    path('profile/staff/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
+
+    path('profile/staff/evaluationpart1/',
+         views.evaluationpart1, name='evaluationpart1'),
+    path('profile/staff/evaluationpart1/evaluationpart2/',
+          views.evaluationpart2, name='evaluationpart2'),
 ]
