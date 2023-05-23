@@ -50,6 +50,7 @@ urlpatterns = [
     path('profile/admin/trainingcourseoverview/', views.trainingcourseoverview, name='trainingcourseoverview.html'),
     path('profile/admin/trainingcourseoverview/trainingcoursedetails/', views.trainingcoursedetails, name='trainingcoursedetails.html'),
 
+    path('profile/admin/reports/', views.reports,name='reports'),
 
     # Staff Section
     path('profile/staff/', views.staff, name='staff.html'),
@@ -62,4 +63,6 @@ urlpatterns = [
          views.evaluationpart1, name='evaluationpart1'),
     path('profile/staff/evaluationpart1/evaluationpart2/',
           views.evaluationpart2, name='evaluationpart2'),
+
+    
 ]

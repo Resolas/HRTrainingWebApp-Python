@@ -51,6 +51,8 @@ def signin(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
     
+#def loadreport(request):
+
 
 def profile(request):
     render(request, 'evaluationpart1.html')
@@ -86,6 +88,9 @@ def employeeregistration(request):
     return render(request, 'employeeregistration.html')
 def programregistration(request):
     return render(request, 'programregistration.html')
+
+def reports(request):
+    return render(request, 'reports.html')
 
 
 # Staff Section Pages
