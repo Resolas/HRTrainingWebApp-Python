@@ -28,7 +28,7 @@ urlpatterns = [
     path('profile/',views.profile, name='profile'),
 
 
-    # Admin Section
+    #region Admin Section
     path('profile/admin/', views.admin, name='admin'),
 
     path('profile/admin/application', views.application, name='application'),
@@ -52,6 +52,11 @@ urlpatterns = [
 
     path('profile/admin/reports/', views.reports,name='reports'),
 
+    #endregion
+
+    #region Staff Section
+
+    
     # Staff Section
     path('profile/staff/', views.staff, name='staff.html'),
 
@@ -64,5 +69,5 @@ urlpatterns = [
     path('profile/staff/evaluationpart1/evaluationpart2/',
           views.evaluationpart2, name='evaluationpart2'),
 
-    
+    #endregion
 ]

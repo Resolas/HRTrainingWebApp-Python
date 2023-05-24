@@ -92,6 +92,10 @@ def programregistration(request):
 def reports(request):
     return render(request, 'reports.html')
 
+def display_data(request):
+    data = investment_report.objects.all()  # Retrieve all instances of YourModel from the database
+    return render(request, 'reports.html', {'data': data})
+
 
 # Staff Section Pages
 def application(request):
