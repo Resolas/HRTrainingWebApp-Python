@@ -33,3 +33,13 @@ class InvestmentReport(models.Model):
     
     def __str__(self):
         return self.investment_report_id
+    
+class TestTable(models.Model):
+    username_id = models.CharField(max_length=45)
+    email = models.CharField(max_length=45)
+    password = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.username_id
+
+

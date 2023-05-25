@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
-
+from .models import TestTable, InvestmentReport
 # Create your views here.
 
 def signup(request):
@@ -92,10 +92,21 @@ def programregistration(request):
 def reports(request):
     return render(request, 'reports.html')
 
+def test_table(request):
+    test = TestTable.objects.all()
+    print(test)
+    flag = test.exists()
+    print(f'Exists = {flag}')
+    return render(request, 'testtable.html', {'test': test})
+    
+
 def display_data(request):
-    data = investment_report.objects.all()  # Retrieve all instances of YourModel from the database
+    data = InvestmentReport.objects.all()  # Retrieve all instances of YourModel from the database
     return render(request, 'reports.html', {'data': data})
 
+def display_data2(request):
+    data2 = TestTable.objects.all()
+    return render(request, 'reports.html', {'data2': data2})
 
 # Staff Section Pages
 def application(request):
