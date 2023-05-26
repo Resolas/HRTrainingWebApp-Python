@@ -98,9 +98,22 @@ def test_table(request):
     flag = test.exists()
     print(f'Exists = {flag}')
     return render(request, 'testtable.html', {'test': test})
+
+
+def test_table2(request):
+    test = TestTable.objects.all()
+    print(test)
+    flag = test.exists()
+    print(f'Exists = {flag}')
+    return render(request, 'reports.html', {'test': test})
+
+
+
+
+
     
 
-def display_data(request):
+def display_InvestmentReport(request):
     data = InvestmentReport.objects.all()  # Retrieve all instances of YourModel from the database
     return render(request, 'reports.html', {'data': data})
 

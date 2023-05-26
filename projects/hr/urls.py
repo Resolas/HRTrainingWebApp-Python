@@ -50,7 +50,9 @@ urlpatterns = [
     path('profile/admin/trainingcourseoverview/', views.trainingcourseoverview, name='trainingcourseoverview.html'),
     path('profile/admin/trainingcourseoverview/trainingcoursedetails/', views.trainingcoursedetails, name='trainingcoursedetails.html'),
 
-    path('profile/admin/testtable/', views.test_table,name='testtable'),
+    #path('profile/admin/testtable/', views.test_table,name='testtable'),
+    #path('profile/admin/reports/', views.test_table2,name='reports'),
+    path('profile/admin/reports/', views.display_InvestmentReport, name='reports'),
 
     
 

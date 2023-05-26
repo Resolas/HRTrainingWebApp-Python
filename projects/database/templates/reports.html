@@ -141,7 +141,7 @@
                     <!--<th>ER PRSI</th>-->
                     <!--<th>ER Pension</th>-->
                     <th>Weekly Gross</th>
-                    <th>Total Weekly</th>
+                    <!--<<th>Total Weekly</th>>-->
                     <th>Full Day</th>
                     <th>Half Day</th>
                     <th>Hourly Rate</th>
@@ -149,19 +149,36 @@
             </thead>
             <tbody>
                 
-            {% for data in test_table %}
-                {% if data %}
-                    <td>{{data.username_id}}</td>
-                    <td>{{data.email}}</td>
-                    <td>{{data.password}}</td>
-                {% else %}
-                    <td>No Data</td>
+                {% for t in test %}
+                <tr>
+                    <td>{{t.username_id}}</td>
+                    <td>{{t.email}}</td>
+                    <td>{{t.password}}</td>
+                    {{t.email}}
+                </tr>
 
-                {% endif %}
-
-            {% endfor %}
-                <td>a</td>
+                {% endfor %}
             
+                {% for i in data %}
+                
+                <tr>
+
+                    <td>{{i.employee_name}}</td>
+                    <td>{{i.point_on_scale}}</td>
+                    <td>{{i.funded_by}}</td>
+                    <td>{{i.annual_salary}}</td>
+                    <td>{{i.weekly_hours}}</td>
+                    <td>{{i.gross_weekly}}</td>
+                    <td>{{i.full_day_rate}}</td>
+                    <td>{{i.half_day_rate}}</td>
+                    <td>{{i.hourly_rate}}</td>
+
+                </tr>
+                
+
+                {% endfor%}
+
+
 
                 
                 

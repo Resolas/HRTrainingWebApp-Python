@@ -34,13 +34,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                {{ test }}
+                {% comment %} {{ test }} {% endcomment %}
                 {% for t in test %}
-                    
+                    <tr>
                         <td>{{t.username_id}}</td>
                         <td>{{t.email}}</td>
                         <td>{{t.password}}</td>
-                        
+                    </tr>
                     
     
                     
