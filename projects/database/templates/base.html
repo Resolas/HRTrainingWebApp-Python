@@ -23,16 +23,21 @@
     <h1> </h1>
 
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated %}      
 
-    <a href="/signout" class="btn btn-danger">Logout</a>
-    <p1 margin-left="50px">logged in as {{user.username}} </p1>
+      <a href="/signout" class="btn btn-danger">Logout</a>
+      
+      <p1 margin-left="50px">logged in as {{user.username}} </p1>
     {% endif %}
 
-    {% if user.is_superuser %}
+    {% if user.is_superuser and user.is_authenticated %}
+      <a href="/profile/admin/" class="btn btn-primary">Home</a>
+      <a href="/admin" class="btn btn-primary">View Admin</a>
+      <a onclick="goBack()" class="btn btn-secondary">Back</a>
 
-    <a href="/admin" class="btn btn-primary">View Admin</a>
-
+    {% elif user.is_superuser != 1 and user.is_authenticated %}
+      <a href="/profile/staff/" class="btn btn-primary">Home</a>
+      <a onclick="goBack()" class="btn btn-secondary">Back</a>
     {% endif %}
     
   </header>
