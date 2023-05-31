@@ -139,10 +139,22 @@ footer {
 	text-align: center;
 }
 </style>
+
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
+{% extends 'base.html'%}
     <body>
+
+		
+		
+
+
 	<header>
 		<h1>HR Homepage</h1>
-		<a href="/signout" class="btn btn-danger">Logout</a>
+		<button class="btn btn-danger" onclick="goBack()">Logout</button>
 		<nav>
 			<ul>
                 
@@ -153,7 +165,7 @@ footer {
 			</ul>
 		</nav>
 	</header>
-
+	{% block content %}
 	<main>
 		<div class="button-container">
             <a class="button" href="employeeregistration">Employee Registration</a>
@@ -166,7 +178,7 @@ footer {
 			
 		</div>
 	</main>
-
+	{% endblock content %}
 	<footer>
 		“I agree that where BJC contribution to course fees for any one training course exceeds €500 in any twelve month period, 
 50% of the cost will be repaid by me in the following circumstances. I will repay this money if I fail to complete the course, 

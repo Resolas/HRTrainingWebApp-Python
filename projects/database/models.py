@@ -34,6 +34,36 @@ class InvestmentReport(models.Model):
     def __str__(self):
         return self.investment_report_id
     
+class Evaluation(models.Model):
+    evaluation_id = models.CharField(max_length=20, primary_key=True)
+    employee_name = models.CharField(max_length=45)
+    job_title = models.CharField(max_length=45)
+    training_course = models.BinaryField()
+    training_provider = models.BinaryField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    no_of_days = models.IntegerField()
+    certification = models.BooleanField()
+    certification_reason = models.TextField()
+    objective = models.TextField()
+    topics = models.TextField()
+    usefulness = models.TextField()
+    three_important_points = models.TextField()
+    topic_relevant = models.CharField(max_length=45)
+    encouragement = models.CharField(max_length=45)
+    material_helpfulness = models.CharField(max_length=45)
+    objective_met = models.CharField(max_length=45)
+    time_sufficient = models.CharField(max_length=45)
+    expectation_met = models.CharField(max_length=45)
+    admin_id = models.CharField(max_length=20)
+    investment_report_id = models.CharField(max_length=20)
+    employee_id = models.CharField(max_length=20)
+    training_id = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.evaluation_id
+
+    
 class TestTable(models.Model):
     username_id = models.CharField(max_length=45)
     email = models.CharField(max_length=45)
