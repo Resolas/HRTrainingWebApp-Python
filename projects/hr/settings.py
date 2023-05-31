@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'database.Employee'
+
+#Variable used for testing the forgot password functionality.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Variables for Email information relating to the forgot password functionality. 
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_PORT = 25
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your_gmail_account@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your_gmail_password'
+
 
 # Application definition
 
@@ -76,12 +88,13 @@ WSGI_APPLICATION = 'hr.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hr_project',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': 'hr_project',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
+        # 'HOST': 'localhost',
+        # 'PORT': '3306'
     }
 }
 
