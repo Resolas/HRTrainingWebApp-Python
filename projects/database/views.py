@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
-from .models import TestTable, InvestmentReport, Evaluation
+from .models import InvestmentReport, Evaluation
 # Create your views here.
 
 def signup(request):

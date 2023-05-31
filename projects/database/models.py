@@ -1,21 +1,31 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
-
-#region example code
-# class Employee(models.Model):
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     email = models.EmailField(unique=True)
-#     is_admin = models.BooleanField(default=False)
-#     is_staff = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return f"{self.first_name} {self.last_name}"
-#endregion
+class CustomUser(AbstractUser):
+    ROLES = (
+        ('admin', 'Admin'),
+        ('employee', 'Employee'),
+    )
+    role_name = models.CharField(max_length=10, choices=ROLES, null=True)
+    email = models.CharField(max_length=45, null=True, unique=True)
+    first_name = models.CharField(max_length=45, null=True)
+    last_name = models.CharField(max_length=45, null=True)
+    position = models.CharField(max_length=45, null=True)
+    funded_by = models.CharField(max_length=45, null=True)
+    annual_salary = models.DecimalField(max_digits=10, decimal_places=0, null=True)
+    investment_report = models.ForeignKey('InvestmentReport', on_delete=models.CASCADE, null=True, related_name='custom_users')
+    training = models.ForeignKey('Training', on_delete=models.CASCADE, null=True, related_name='custom_users')
+    evaluation = models.ForeignKey('Evaluation', on_delete=models.CASCADE, null=True, related_name='custom_users')
+    def is_admin(self):
+        return self.role_name == 'admin'
+    def is_employee(self):
+        return self.role_name == 'employee'
     
+    class Meta:
+        db_table = 'custom_user'
+        
 class InvestmentReport(models.Model):
-    investment_report_id = models.CharField(max_length=20, primary_key=True)
+    investment_report_id = models.CharField(primary_key=True, max_length=45)
     employee_name = models.CharField(max_length=45)
     scale = models.CharField(max_length=45)
     point_on_scale = models.DecimalField(max_digits=10, decimal_places=0)
@@ -26,50 +36,70 @@ class InvestmentReport(models.Model):
     full_day_rate = models.DecimalField(max_digits=10, decimal_places=0)
     half_day_rate = models.DecimalField(max_digits=10, decimal_places=0)
     hourly_rate = models.DecimalField(max_digits=10, decimal_places=0)
-    admin_id = models.CharField(max_length=20)
-    evaluation_id = models.CharField(max_length=20)
-    employee_id = models.CharField(max_length=20)
-    training_id = models.CharField(max_length=20)
+    # Removed Admin ref
+    evaluation = models.ForeignKey('Evaluation', on_delete=models.CASCADE, related_name='investment_reports')
+    employee = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='investment_reports')
+    training = models.ForeignKey('Training', on_delete=models.CASCADE, related_name='investment_reports')
     
-    def __str__(self):
-        return self.investment_report_id
-    
+    class Meta:
+        db_table = 'investment_report'
+
 class Evaluation(models.Model):
-    evaluation_id = models.CharField(max_length=20, primary_key=True)
+    evaluation_id = models.CharField(primary_key=True, max_length=45)
     employee_name = models.CharField(max_length=45)
     job_title = models.CharField(max_length=45)
-    training_course = models.BinaryField()
-    training_provider = models.BinaryField()
+    training_course = models.TextField()
+    training_provider = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
     no_of_days = models.IntegerField()
-    certification = models.BooleanField()
+    certification = models.IntegerField()
     certification_reason = models.TextField()
     objective = models.TextField()
     topics = models.TextField()
     usefulness = models.TextField()
     three_important_points = models.TextField()
-    topic_relevant = models.CharField(max_length=45)
-    encouragement = models.CharField(max_length=45)
-    material_helpfulness = models.CharField(max_length=45)
-    objective_met = models.CharField(max_length=45)
-    time_sufficient = models.CharField(max_length=45)
-    expectation_met = models.CharField(max_length=45)
-    admin_id = models.CharField(max_length=20)
-    investment_report_id = models.CharField(max_length=20)
-    employee_id = models.CharField(max_length=20)
-    training_id = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.evaluation_id
-
+    topic_relevant = models.IntegerField()
+    encouragement = models.IntegerField()
+    material_helpfulness = models.IntegerField()
+    objective_met = models.IntegerField()
+    time_sufficient = models.IntegerField()
+    expectation_met = models.IntegerField()
+    # Removed Admin ref
+    investment_report = models.ForeignKey('InvestmentReport', on_delete=models.CASCADE, related_name='evaluations')
+    employee = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='evaluations')
+    training = models.ForeignKey('Training', on_delete=models.CASCADE, related_name='evaluations')
     
-class TestTable(models.Model):
-    username_id = models.CharField(max_length=45)
-    email = models.CharField(max_length=45)
-    password = models.CharField(max_length=45)
+    class Meta:
+        db_table = 'evaluation'
 
-    def __str__(self):
-        return self.username_id
+class Training(models.Model):
+    training_id = models.CharField(primary_key=True, max_length=45)
+    employee_name = models.CharField(max_length=45)
+    position = models.CharField(max_length=45)
+    length_of_service = models.CharField(max_length=45)
+    application_date = models.DateField()
+    training_name = models.CharField(max_length=45)
+    training_provider = models.CharField(max_length=45)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    no_of_days = models.IntegerField()
+    training_hours = models.IntegerField()
+    application_status = models.IntegerField()
+    current_status = models.IntegerField()
+    delivery_method = models.IntegerField()
+    aims_and_objective = models.TextField()
+    expected_outcome = models.TextField()
+    total_cost = models.IntegerField()
+    bjc_contribution = models.TextField()
+    employee_contribution = models.TextField()
+    employee_qualification = models.TextField()
+    # Removed Admin ref
+    evaluation = models.ForeignKey('Evaluation', on_delete=models.CASCADE, related_name='trainings')
+    investment_report = models.ForeignKey('InvestmentReport', on_delete=models.CASCADE, related_name='trainings')
+    employee = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='trainings')
+    
+    class Meta:
+        db_table = 'training'
 
 
