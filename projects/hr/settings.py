@@ -70,6 +70,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hr.wsgi.application'
 
+# Session Settings
+
+SESSION_COOKIE_AGE = 0
+SESSION_COOKIE_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
