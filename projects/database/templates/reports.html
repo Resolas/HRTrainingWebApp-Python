@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Reports</title>
+    <link rel="stylesheet" type="text/css" href="MainStyleSheet.css">
+</head>
+<style>
+
+    body{
+        margin:0 auto;
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+
+    table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        width: 100%;
+        font-size: 16px;
+    }
+    
+    th, td {
+        padding: 10px 20px;
+        border: 1px solid #a4a3ff;
+        text-align: center;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    a {
+
+        word-wrap: break-word;
+
+    }
+    
+    p {
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 1.5;
+        text-align: justify;
+    }
+
+    div{
+        text-align: center;
+        min-width: 10%;
+        max-width: 80%;
+        border-radius: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+        display: flexbox;
+        background-color: rgb(218, 255, 252);
+
+
+    }
+
+
+</style>
+<body>
+    <div><a href="HRAdminMenu.html">Back</a></button>       </div>
+    <div>
+        
+	<h1>Training Investment Report   <button style="text-align: right; margin-left: 50px;">
+             
+         </h1>
+    </div>
+
+    <div>
+        <button onclick="loadTrainingInvestmentData()">Load Data</button><br>
+        <button onclick="callTID()">Update Total</button><br>
+        <table id="reportTrainingInvestment">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Delivery Method</th>
+                    <th>Course Fees</th>
+                    <th>No. Employees Attended</th>
+                    <th>No. of Days</th>
+                    <th>No. of Hours</th>
+                    <th>Salary Costs</th>
+                    <th>Total Cost</th>
+                    <th>Cumulative Costs</th>
+                    
+                </tr>
+                
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>ABC Training</td>
+                    <td>Online</td>
+                    <td>1000</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>25</td>
+                    <td>2000</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ABC Training</td>
+                    <td>Online</td>
+                    <td>1000</td>
+                    <td>10</td>
+                    <td>5</td>
+                    <td>25</td>
+                    <td>2000</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+        
+    </div>
+
+    <div>
+
+        <h1>Employee Salary Report</h1>
+
+    </div>
+
+    <div>
+        <button onclick="loadReportSalaryData()">Load Data</button><br>
+        <table id="reportSalaryTable">
+            <thead> <!--Overview Headers-->
+                <tr>
+                    <th>Employee</th>
+                    <th>Point on Scale</th>
+                    <th>Funding Source</th>
+                    <th>Annual Salary</th>
+                    <th>Weekly Hours</th>
+                    <!--<th>ER PRSI</th>-->
+                    <!--<th>ER Pension</th>-->
+                    <th>Weekly Gross</th>
+                    <!--<<th>Total Weekly</th>>-->
+                    <th>Full Day</th>
+                    <th>Half Day</th>
+                    <th>Hourly Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for t in test %}
+                <tr>
+                    <td>{{t.username_id}}</td>
+                    <td>{{t.email}}</td>
+                    <td>{{t.password}}</td>
+                    {{t.email}}
+                </tr>
+
+                {% endfor %}
+            
+                {% for i in data %}
+                
+                <tr>
+
+                    <td>{{i.employee_name}}</td>
+                    <td>{{i.point_on_scale}}</td>
+                    <td>{{i.funded_by}}</td>
+                    <td>{{i.annual_salary}}</td>
+                    <td>{{i.weekly_hours}}</td>
+                    <td>{{i.gross_weekly}}</td>
+                    <td>{{i.full_day_rate}}</td>
+                    <td>{{i.half_day_rate}}</td>
+                    <td>{{i.hourly_rate}}</td>
+
+                </tr>
+                
+
+                {% endfor%}
+
+
+
+                
+                
+            </tbody>
+        </table>
+    </div>
+
+    
+
+</body>
+
+<script>
+    // Training Investment Report Section ------------------------
+    function loadTrainingInvestmentData()
+    {
+
+        var getTable = document.getElementById('reportTrainingInvestment');
+        var row = getTable.insertRow();
+
+        var trainingProviderCell = row.insertCell(0);
+        var deliveryMethodCell = row.insertCell(1);
+        var courseFeesCell = row.insertCell(2);
+        var noEmployeeAttended = row.insertCell(3);
+        var noOfDays = row.insertCell(4);
+        var noOfHours = row.insertCell(5);
+        var salaryCost = row.insertCell(6);
+        var totalCost = row.insertCell(7);
+        var cumulativeCost = row.insertCell(8);
+
+        courseFeesCell.innerHTML = '50';
+        salaryCost.innerHTML = '100';
+
+        // Adds the total upon adding a NEW row
+        /*
+        courseFeesCellF = parseFloat(row.cells[2].innerHTML);
+        salaryCostF = parseFloat(row.cells[6].innerHTML);
+        var newTotal = courseFeesCellF + salaryCostF;
+        totalCost.innerHTML = newTotal;
+        */
+    
+    }
+    
+    function updateTotalAndCumulative()
+    {
+        var getTable = document.getElementById('reportTrainingInvestment');
+        var rows = getTable.getElementsByTagName("tr");
+
+        var cumulativeCost = 0;
+
+        for (var i = 1; i < rows.length; i++)
+        {
+            var row = rows[i];
+            var cells = row.getElementsByTagName("td");
+
+            var courseFees = parseFloat(row.cells[2].textContent);
+            var salaryCost = parseFloat(row.cells[6].textContent);
+
+            var totalCost = courseFees + salaryCost;
+            cells[7].textContent = totalCost.toFixed(2);
+
+            cumulativeCost += totalCost;
+            cells[8].textContent = cumulativeCost.toFixed(2);
+
+        }
+
+
+    }
+    
+
+    function callTID()
+    {
+        loadTrainingInvestmentData();
+        updateTotalAndCumulative();
+    }
+    
+
+    // Employee Salary Section ------------------------------
+    function loadReportSalaryData() {
+        
+    
+    var getTable = document.getElementById('reportSalaryTable');
+    
+    var row = getTable.insertRow();
+    
+    // DATA CELLS---------------
+    var employeeCell = row.insertCell(0);
+    var pointOnScaleCell = row.insertCell(1);
+    var fundingSourceCell = row.insertCell(2);
+    var annualSalaryCell = row.insertCell(3);
+    var weeklyHoursCell = row.insertCell(4);
+    var weeklyGrossCell = row.insertCell(5);
+    var weeklyTotalCell = row.insertCell(6);
+    var fullDayCell = row.insertCell(7);
+    var halfDayCell = row.insertCell(8);
+    var hourlyRateCell = row.insertCell(9);
+    // DATA CELLS---------------
+    
+    employeeCell.innerHTML = 'EMPLOYEE';
+    pointOnScaleCell.innerHTML = '8M';
+    fundingSourceCell.innerHTML = 'LAES';
+    
+    // ER PRSI + ER PENSION + WEEKLY GROSS
+
+    }
+    
+    function updateSalaryData()
+    {
+
+        var getTable = document.getElementById("reportSalaryTable");
+        var rows = table.getElementsByTagName("tr");
+
+        
+        // Calculate Salaries
+        for (var i = 1; i < rows.length; i++)
+        {
+
+            var row = rows[i];
+            var cells = row.getElementsByTagName("td");
+
+            // Do math here
+
+            // Declaring variables
+            var annualSalary = parseFloat(row.cell[i].textContent);
+
+            var weeklyGross = parseFloat(row.cells[i].textContent);
+            var weeklyHours = parseFloat(row.cell[i].textContent);
+            var weeklyTotal = parseFloat(row.cells[i].textContent);
+
+            var fullDay = parseFloat(row.cell[i].textContent);
+            var halfDay = parseFloat(row.cell[i].textContent);
+            var hourlyRate = parseFloat(row.cell[i].textContent);
+
+            
+
+
+
+        }
+
+
+    }
+
+
+
+</script>
+
+    
+
+
+
+</html>

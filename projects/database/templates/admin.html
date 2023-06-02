@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Admin</title>
+    </head>
+    <style>
+    /* Admin Stylesheet */
+/* Reset default browser styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/* Style for header */
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+
+header h1 {
+	font-size: 36px;
+	margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.mainDiv {
+
+background-color: aliceblue;
+
+
+}
+
+.mainTable {
+    width: 100%;
+	border-collapse: collapse;
+	border: 5px solid #ddd;
+	font-size: 16px;
+
+}
+
+.mainTh {
+    background-color: #96beff;
+    display: block;
+    border: 3px;
+    border-style: dotted;
+
+}
+
+
+
+nav ul {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+}
+
+nav li {
+	margin: 0 10px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 5px solid #ddd;
+	font-size: 16px;
+}
+
+thead th {
+
+    background-color: #96beff;
+display: block;
+border: 3px;
+border-style: dotted;
+
+}
+
+/* Style for main section */
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.button-container {
+    
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.button {
+	display: block;
+	/*padding: 10px;*/
+    resize: both;
+    min-width: 20px;
+    max-width: 200px;
+    min-height: 20px;
+    max-height: 200px;
+
+    padding-top: 15%;
+    padding-bottom: 15%;
+    padding-left: 15%;
+    padding-right: 15%;
+	background-color: #96beff;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-bottom: 10px;
+	width: 200px;
+}
+
+.button:hover {
+	background-color: #3e8e41;
+}
+
+.button:active {
+	background-color: #1e4f1e;
+}
+
+/* Style for footer */
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+</style>
+
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
+{% extends 'base.html'%}
+    <body>
+
+		
+		
+
+
+	<header>
+		<h1>HR Homepage</h1>
+		<button class="btn btn-danger" onclick="goBack()">Logout</button>
+		<nav>
+			<ul>
+                
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+                
+			</ul>
+		</nav>
+	</header>
+	{% block content %}
+	<main>
+		<div class="button-container">
+            <a class="button" href="employeeregistration">Employee Registration</a>
+            <a class="button" href="employeepersonaldetailspart1">Employee Personal Details</a>
+            <a class="button" href="pendingapplication">View Applications</a>
+            <a class="button" href="evaluationpart1">View Evaluations</a>
+            <a class="button" href="trainingcourseoverview">View Course Overview</a>
+			<a class="button" href="reports">Reports</a>
+           
+			
+		</div>
+	</main>
+	{% endblock content %}
+	<footer>
+		“I agree that where BJC contribution to course fees for any one training course exceeds €500 in any twelve month period, 
+50% of the cost will be repaid by me in the following circumstances. I will repay this money if I fail to complete the course, 
+if I fail the exams or should I decide to leave the organization within twelve months of having completed the course to take up 
+another position. These arrangements may be altered at the discretion of Management”.
+	</footer>
+</html>
