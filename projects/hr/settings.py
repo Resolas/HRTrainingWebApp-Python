@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,8 +73,8 @@ WSGI_APPLICATION = 'hr.wsgi.application'
 
 # Session Settings
 
-SESSION_COOKIE_AGE = 0
-SESSION_COOKIE_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800   # Expires at 1/2 hour
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
