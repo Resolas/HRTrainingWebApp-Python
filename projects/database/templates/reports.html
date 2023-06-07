@@ -93,6 +93,12 @@
             </thead>
             <tbody>
 
+                {% for i in training %}
+                
+                <td>{{i.training_name}}</td>
+
+                {% endfor %}
+
                 <tr>
                     <td>ABC Training</td>
                     <td>Online</td>
@@ -148,8 +154,10 @@
                 </tr>
             </thead>
             <tbody>
+
                 
-                {% for t in test %}
+                
+                {% comment %} {% for t in test %}
                 <tr>
                     <td>{{t.username_id}}</td>
                     <td>{{t.email}}</td>
@@ -157,7 +165,7 @@
                     {{t.email}}
                 </tr>
 
-                {% endfor %}
+                {% endfor %} {% endcomment %}
             
                 {% for i in data %}
                 

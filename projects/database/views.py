@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
-from .models import InvestmentReport, Evaluation
+from .models import InvestmentReport, Evaluation, Training
 # Create your views here.
 
 def signup(request):
@@ -130,6 +130,10 @@ def display_Evaluation(request):
 
 def display_InvestmentReport(request):
     data = InvestmentReport.objects.all()  # Retrieve all instances of YourModel from the database
+    return render(request, 'reports.html', {'data': data})
+
+def display_Training(request):
+    data = Training.objects.all()
     return render(request, 'reports.html', {'data': data})
 
 def display_data2(request):

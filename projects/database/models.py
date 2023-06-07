@@ -13,19 +13,17 @@ class CustomUser(AbstractUser):
     position = models.CharField(max_length=45, null=True)
     funded_by = models.CharField(max_length=45, null=True)
     annual_salary = models.DecimalField(max_digits=10, decimal_places=0, null=True)
-    investment_report = models.ForeignKey('InvestmentReport', on_delete=models.CASCADE, null=True, related_name='custom_users')
-    training = models.ForeignKey('Training', on_delete=models.CASCADE, null=True, related_name='custom_users')
-    evaluation = models.ForeignKey('Evaluation', on_delete=models.CASCADE, null=True, related_name='custom_users')
+
     def is_admin(self):
         return self.role_name == 'admin'
+    
     def is_employee(self):
         return self.role_name == 'employee'
     
     class Meta:
         db_table = 'custom_user'
-        
+
 class InvestmentReport(models.Model):
-    investment_report_id = models.CharField(primary_key=True, max_length=45)
     employee_name = models.CharField(max_length=45)
     scale = models.CharField(max_length=45)
     point_on_scale = models.DecimalField(max_digits=10, decimal_places=0)
@@ -36,16 +34,11 @@ class InvestmentReport(models.Model):
     full_day_rate = models.DecimalField(max_digits=10, decimal_places=0)
     half_day_rate = models.DecimalField(max_digits=10, decimal_places=0)
     hourly_rate = models.DecimalField(max_digits=10, decimal_places=0)
-    # Removed Admin ref
-    evaluation = models.ForeignKey('Evaluation', on_delete=models.CASCADE, related_name='investment_reports')
-    employee = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='investment_reports')
-    training = models.ForeignKey('Training', on_delete=models.CASCADE, related_name='investment_reports')
-    
+
     class Meta:
         db_table = 'investment_report'
 
 class Evaluation(models.Model):
-    evaluation_id = models.CharField(primary_key=True, max_length=45)
     employee_name = models.CharField(max_length=45)
     job_title = models.CharField(max_length=45)
     training_course = models.TextField()
@@ -65,16 +58,11 @@ class Evaluation(models.Model):
     objective_met = models.IntegerField()
     time_sufficient = models.IntegerField()
     expectation_met = models.IntegerField()
-    # Removed Admin ref
-    investment_report = models.ForeignKey('InvestmentReport', on_delete=models.CASCADE, related_name='evaluations')
-    employee = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='evaluations')
-    training = models.ForeignKey('Training', on_delete=models.CASCADE, related_name='evaluations')
-    
+
     class Meta:
         db_table = 'evaluation'
 
 class Training(models.Model):
-    training_id = models.CharField(primary_key=True, max_length=45)
     employee_name = models.CharField(max_length=45)
     position = models.CharField(max_length=45)
     length_of_service = models.CharField(max_length=45)
@@ -94,12 +82,41 @@ class Training(models.Model):
     bjc_contribution = models.TextField()
     employee_contribution = models.TextField()
     employee_qualification = models.TextField()
-    # Removed Admin ref
-    evaluation = models.ForeignKey('Evaluation', on_delete=models.CASCADE, related_name='trainings')
-    investment_report = models.ForeignKey('InvestmentReport', on_delete=models.CASCADE, related_name='trainings')
-    employee = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='trainings')
-    
+
     class Meta:
         db_table = 'training'
+
+
+    def __str__(self):
+        return self.training_name
+    
+
+
+class UserInvestment(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    investment_report = models.ForeignKey(InvestmentReport, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'user_investment'
+
+    def __str__(self):
+        return f"{self.investment_report, self.user}"
+
+class UserEvaluation(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    evaluation = models.ForeignKey(Evaluation, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'user_evaluation'
+
+class UserTraining(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'user_training'
+
+    def __str__(self):
+        return f"{self.user} - {self.training}"
 
 
