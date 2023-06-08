@@ -3,6 +3,17 @@
 {% block title %}Login{% endblock %}
   
 {% block content %}
+
+  <script>
+    // BACK BUTTON
+    function goBack()
+    {
+      window.history.back();
+    }
+  </script>
+
+
+
    <h2>Welcome!</h2>
    {% if user.is_authenticated %}
       Hi {{ user.username }}!
