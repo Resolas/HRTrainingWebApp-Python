@@ -17,12 +17,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from database import views
+from database.views import create_addApp
+from database.views import staff_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('signin/',views.signin, name='signin'),
-    path('signup/',views.signup, name='signup'),
-    path('signout/',views.signout, name='signout'),
-    path('profile/',views.profile, name='profile'),
+    path('signin/', views.signin, name='signin'),
+    path('signup/', views.signup, name='signup'),
+    path('signout/', views.signout, name='signout'),
+    path('profile/', views.profile, name='profile'),
+    path('profile/staff/', views.staff, name='staff'),
+    path('profile/staff/addApp.html/', views.addApp, name='addApp'),
+    path('saved/', views.saved, name='saved'),
+    path('addApp/', views.addApp, name='addApp'),
+    path('new-addApp/', create_addApp, name='create-addApp'),
+    path('staff/', staff_view, name='staff'),
+    path('success/', views.success_page, name='success-page'),
+    
+    
+     
+
 ]

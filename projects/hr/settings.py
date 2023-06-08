@@ -76,12 +76,9 @@ WSGI_APPLICATION = 'hr.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hr_project',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/ 'db.sqlite3',
+
     }
 }
 
@@ -119,6 +116,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+SESSION_COOKIE_AGE = 1000
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = 'static/'
 
