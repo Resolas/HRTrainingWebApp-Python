@@ -6,6 +6,7 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 from .models import InvestmentReport, Evaluation, Training
+from .forms import CustomUserCreationForm
 # Create your views here.
 
 def signup(request):
@@ -27,6 +28,24 @@ def signup(request):
     else:
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
+    
+
+#-------------------------
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # messages.success(request, 'Registration successful')
+            return redirect('/profile/admin')
+        else:
+            print(form.errors)
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'employeeregistration.html', {'form': form})
+
+#--------------------------------
+
 
 def home(request):
     return render(request, 'home.html')
@@ -100,21 +119,6 @@ def reports(request):
 
 #region other functions
 
-def test_table(request):
-    test = TestTable.objects.all()
-    print(test)
-    flag = test.exists()
-    print(f'Exists = {flag}')
-    return render(request, 'testtable.html', {'test': test})
-
-
-def test_table2(request):
-    test = TestTable.objects.all()
-    print(test)
-    flag = test.exists()
-    print(f'Exists = {flag}')
-    return render(request, 'reports.html', {'test': test})
-
 # def get_Page_Name(request):
 #     currentPage = loader.get_template(request.path).name
 #     context = {'currentPage': currentPage}
@@ -135,10 +139,6 @@ def display_InvestmentReport(request):
 def display_Training(request):
     data = Training.objects.all()
     return render(request, 'reports.html', {'data': data})
-
-def display_data2(request):
-    data2 = TestTable.objects.all()
-    return render(request, 'reports.html', {'data2': data2})
 
 # Staff Section Pages
 def application(request):

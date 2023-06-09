@@ -20,12 +20,13 @@ from database import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('staff/', views.staff, name='staff.html'),
+    path('staff/', views.staff, name='staff'),
     path('', views.home, name='home'),
     path('signin/',views.signin, name='signin'),
     path('signup/',views.signup, name='signup'),
     path('signout/',views.signout, name='signout'),
     path('profile/',views.profile, name='profile'),
+    
 
 
     #region Admin Section
@@ -35,7 +36,7 @@ urlpatterns = [
 
     path('profile/admin/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
 
-    path('profile/admin/employeeregistration', views.employeeregistration, name='employeeregistration'),
+    path('profile/admin/employeeregistration', views.register_view, name='employeeregistration'),
 
     path('profile/admin/evaluationpart1/',
          views.evaluationpart1, name='evaluationpart1'),
