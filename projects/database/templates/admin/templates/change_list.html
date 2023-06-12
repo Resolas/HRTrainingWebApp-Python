@@ -1,0 +1,47 @@
+<div class="custom-element">
+    <h2>Custom Content</h2>
+    <p>This is a custom HTML element added to the change list page.</p>
+</div>
+
+{% block result_list %}
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Custom Column 1</th>
+                <th scope="col">Custom Column 2</th>
+                <!-- Existing columns -->
+                <th scope="col">{{ admin_list_display }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in result_list %}
+                <tr>
+                    <td>{{ obj.custom_field_1 }}</td>
+                    <td>{{ obj.custom_field_2 }}</td>
+                    <!-- Existing fields -->
+                    <td>{{ obj.admin_list_display }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block search_form %}
+    <form method="get" action="" class="search-form">
+        <input type="text" name="{{ search_var }}" value="{{ search }}" class="search-input" placeholder="Search">
+        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+    </form>
+{% endblock %}
+
+{% block filter %}
+    <div class="custom-filter">
+        <h3>Custom Filter</h3>
+        <select name="{{ spec.parameter_name }}" class="custom-select">
+            <option value="">All</option>
+            <!-- Add your filter options here -->
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+        </select>
+        <button type="submit" class="filter-button">Filter</button>
+    </div>
+{% endblock %}

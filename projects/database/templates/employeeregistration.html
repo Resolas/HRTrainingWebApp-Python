@@ -4,27 +4,30 @@
   <title>Employee Form</title>
   <style>
     body {
-      background-color: #f2f2f2;
+      background-color: white;
+      color: black; /* Set font color to black */
     }
     form {
-      background-color: #e6f7ff;
+      background-color: #F2F2F2;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0px 0px 10px #888888;
-      max-width: 500px;
+      box-shadow: 0px 0px 10px white;
+      max-width: 800px; /* Adjust the width as needed */
       margin: 50px auto;
     }
     h1 {
       text-align: center;
       margin-top: 0;
-      color: #4da6ff;
+      color: black;
     }
     label {
       font-weight: bold;
       display: block;
       margin-bottom: 10px;
     }
-    input[type="text"], input[type="password"], input[type="email"] {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
       border: none;
       border-radius: 5px;
       padding: 10px;
@@ -33,11 +36,14 @@
       box-sizing: border-box;
       font-size: 16px;
     }
-    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus {
       outline: none;
       box-shadow: 0px 0px 5px #888888;
     }
-    input[type="submit"], input[type="button"] {
+    input[type="submit"],
+    input[type="button"] {
       background-color: #0099CC;
       color: white;
       border: none;
@@ -46,123 +52,118 @@
       font-size: 16px;
       cursor: pointer;
     }
-    input[type="submit"]:hover, input[type="button"]:hover {
-      background-color: #0077b3;
+    input[type="submit"]:hover,
+    input[type="button"]:hover {
+      background-color: #0099CC;
     }
-    input[type="submit"]:focus, input[type="button"]:focus {
+    input[type="submit"]:focus,
+    input[type="button"]:focus {
       outline: none;
     }
-    
     .back-button {
-  background-color: #0099CC;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.back-button:hover {
-  background-color: #0077b3;
-}
-
-.back-button:focus {
-  outline: none;
-}
+      background-color: #0099CC;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      float: left; /* Align the button to the left */
+    }
+    .submit-button {
+      background-color: #0099CC;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      float: right; /* Align the button to the right */
+    }
+    .button-container button {
+      background-color: #0099CC;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      float: left;
+      margin-right: 10px;
+    }
     
-
+    .button-container button:hover {
+      background-color: #0077B3;
+    }
+    
   </style>
 </head>
 <body>
   <form>
     <h1>Employee Registration</h1>
-		<label for="id">ID:</label>
-		<input type="text" id="id" name="id"placeholder="Identifcation Number"required>
-		
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="password"placeholder="password">
-​
-		<label for="first-name">First Name:</label>
-		<input type="text" id="first-name" name="first-name" placeholder="first name">
-		
-		<label for="last-name">Last Name:</label>
-		<input type="text" id="last-name" name="last-name"placeholder="last name">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" placeholder>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder>
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" name="first-name" placeholder>
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" name="last-name" placeholder>
+    <label for="status">Status:</label>
+    <select id="status" name="Status"><br><br>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select><br><br>
+    <label for="job-title">Job Title:</label>
+    <input type="text" id="job-title" name="job-title" placeholder><br>
+    <label for="fundedby">Funded By:</label>
+    <input type="text" id="Funded By" name="Funded By" placeholder><br>
+    <label for="number-input">Salary:</label>
+    <input type="number" id="number-input" name="number-input" placeholder /><br><br>
+    <label for="email">Email:</label>
+    <input type=text id="email" name="email " placeholder /><br>
+    <label for="admin">Admin:</label>
+    <label class="radio" for="is-admin-yes">
+      <input type="radio" id="is-admin-yes" name="is-admin" value="yes">
+      Yes
+    </label>
+    <label class="radio" for="is-admin-no">
+      <input type="radio" id="is-admin-no" name="is-admin" value="no">
+      No
+    </label>
+    <style>
+      label.radio {
+        display: inline-block;
+        margin-right: 12px;
+      }
+      input[type="radio"] {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    </style>
+    <div class="button-container">
+      <button class="back-button" onclick="goBack()">Back</button>
+      <button class="cancel-button">Cancel</button>
+      <button class="edit-button">Edit</button>
+      <button class="save-button">Save</button>
+      <button class="active-button">Active</button>
+      <input type="submit" value="Submit" class="submit-button" onclick="submitForm()">
+    </div>
+    <br><br><br><br><br><br>
+  </form>
 
-		<label for="start-date">Start Date:</label>
-		<input type="date"     id="start-date" name="start-date">
-​
-		<label for="end-date">End Date:</label>
-		<input type="date" id="end-date" name="end-date" ><br><br>
-		
-		<label for="status">Status:</label>
-		<select id="status" name="Status"><br><br>
-		<option value="Active">Active</option>
-		<option value="Inactive">Inactive</option>
-		</select><br><br>
-	
-	<label for="job-title">Job Title:</label>
-	<input type="text" id="job-title" name="job-title"placeholder="job title"><br>
-		
-  <label for="fundedby">Funded By:</label>
-  <input type="text" id="Funded By" name="Funded By" placeholder="Enter Text"><br>
-  
-  <label for="number-input">Salary:</label>
-  <input type="number" id="number-input" name="number-input"placeholder="€" /><br><br>
-  
-  <label for="email">E-Mail:</label>
-  <input type=text id="email" name="email "placeholder="enter email" /><br>
-  
-  <style>
-  label.radio {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  input[type="radio"] {
-    display: inline-block;
-    vertical-align: middle;
-  }
-</style>
-<label for="is-admin">Is Admin:</label>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
 
-<label class="radio" for="is-admin-yes">
-  <input type="radio" id="is-admin-yes" name="is-admin" value="yes">
-  Yes
-</label>
-<label class="radio" for="is-admin-no">
-  <input type="radio" id="is-admin-no" name="is-admin" value="no">
-  No
-</label>
-
-</div><br><br>
-   
-<button class="back-button" onclick="goBack()">Back</button>
-
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
-
-  
-<form>
-  <input type="submit" value="Submit" onclick="submitForm()">
-</form>
-
-<script>
-  function submitForm() {
-    // prevent the form from being submitted multiple times
-    document.querySelector("input[type='submit']").disabled = true;
-    
-    // perform any necessary form validation or data processing here
-    
-    // redirect to the new page
-    window.location.href = "Submit.html";
-  }
-</script>
-
-
-<br><br><br><br><br><br>
-    <footer>
-      <p>&copy; Team LEET/1337 All Rights Reserved.</p>
-    </footer>
+    function submitForm() {
+      // prevent the form from being submitted multiple times
+      document.querySelector("input[type='submit']").disabled = true;
+      // perform any necessary form validation or data processing here
+      // redirect to the new page
+      window.location.href = "Submit.html";
+    }
+  </script>
+</body>
+</html>
