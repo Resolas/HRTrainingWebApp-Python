@@ -1,78 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Training Overview</title>
+    <title>Training Overview</title>
     <link rel="stylesheet" type="text/css" href="MainStyleSheet.css">
-	<style>
-
-        body{
-            margin:0 auto;
+    <style>
+        body {
+            margin: 0 auto;
             font-family: Arial, Helvetica, sans-serif;
-
         }
 
-		table {
-			border-collapse: collapse;
-			margin-bottom: 20px;
-			width: 100%;
-			font-size: 16px;
-		}
-		
-		th, td {
-			padding: 10px 20px;
-			border: 1px solid #a4a3ff;
-			text-align: center;
-		}
-		
-		th {
-			background-color: #f2f2f2;
-		}
-		
-		h1 {
-			text-align: center;
-			margin-top: 50px;
-		}
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        th, td {
+            padding: 10px 20px;
+            border: 1px solid #a4a3ff;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
 
         a {
-
             word-wrap: break-word;
-
         }
-		
-		p {
-			margin-top: 20px;
-			font-size: 18px;
-			line-height: 1.5;
-			text-align: justify;
-		}
 
-        div{
+        p {
+            margin-top: 20px;
+            font-size: 18px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .container {
             text-align: center;
+            margin: 0 auto;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: #F2F2F2;(218, 255, 252);
             min-width: 10%;
             max-width: 80%;
-            border-radius: 20px;
-            padding-left: 50px;
-            padding-right: 50px;
-            display: flexbox;
-            background-color: rgb(218, 255, 252);
-
-
+            position: relative;
         }
 
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
 
-	</style>
+        .add-row-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .back-btn {
+            background-color: #0099CC;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+
+    </style>
 </head>
 <body>
-    <div>
-        
-	<h1>Evaluation Overview   <button style="text-align: right; margin-left: 50px;">
-        <a href="admin">Back</a></button>            
-         </h1>
-    </div>
-
-    <div>
+    <div class="container">
+        <h1>Evaluation Overview</h1>
+        <div class="btn-container">
+            <div></div>
+            <button class="add-row-btn" onclick="addRow('trainingcoursedetails')">Add Row</button>
+        </div>
         <table>
-            <thead> <!--Overview Headers-->
+            <thead>
                 <tr>
                     <th>Course Name</th>
                     <th>Training Provider</th>
@@ -113,53 +141,51 @@
                 </tr>
             </tbody>
         </table>
+
+       
+        <div class="btn-container">
+            
+            <button class="back-btn" onclick="goBack()">Back</button>
+        </div>
     </div>
-	
-	<button onclick="addRow('trainingcoursedetails')">Add Row</button>
-	
-	<p>This statistical report shows the revenue, expenses, and profit for a business over the past three years. As you can see from the table above, the business has experienced steady growth in revenue and profit, while keeping expenses under control.</p>
-	
-	<script>
-		function addRow(myLink) {
-			// Get a reference to the table
-			var table = document.getElementsByTagName('table')[0];
-			
-			// Create a new row
-			var row = table.insertRow();
-			
-			// Add cells to the new row
-			var courseNameCell = row.insertCell(0);
-			var trainingProviderCell = row.insertCell(1);
-			var trainingPerformanceCell = row.insertCell(2);
-			var costCell = row.insertCell(3);
+
+    <script>
+        function addRow(myLink) {
+            // Get a reference to the table
+            var table = document.getElementsByTagName('table')[0];
+
+            // Create a new row
+            var row = table.insertRow();
+
+            // Add cells to the new row
+            var courseNameCell = row.insertCell(0);
+            var trainingProviderCell = row.insertCell(1);
+            var trainingPerformanceCell = row.insertCell(2);
+            var costCell = row.insertCell(3);
             var dayCell = row.insertCell(4);
             var employeeCell = row.insertCell(5);
             var buttonCell = row.insertCell(6);
-			
-			// Add text to the new cells
-			courseNameCell.innerHTML = '2021';
-			trainingProviderCell.innerHTML = '$180,000';
-			trainingPerformanceCell.innerHTML = '$130,000';
-			costCell.innerHTML = '$50,000';
+
+            // Add text to the new cells
+            courseNameCell.innerHTML = '2021';
+            trainingProviderCell.innerHTML = '$180,000';
+            trainingPerformanceCell.innerHTML = '$130,000';
+            costCell.innerHTML = '$50,000';
             dayCell.innerHTML = '30d';
             employeeCell.innerHTML = '9';
 
-            // Code to create a button in a script
+            // Create a button in a script
             var newButton = document.createElement('button');
             newButton.innerHTML = 'View Course';
-            newButton.onclick = function()
-            {
-                // put whatever it needs to send the user to that course details
-                //alert('Viewing Course :)');
-                //newButton.onclick = "GotoPage(TrainingCourseDetails.html)";
+            newButton.onclick = function() {
                 window.location.href = myLink;
             };
             buttonCell.appendChild(newButton);
+        }
 
-            
-            
-		}
-
-	</script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>

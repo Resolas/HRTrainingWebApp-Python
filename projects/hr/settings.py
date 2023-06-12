@@ -107,6 +107,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'database.CustomUser'
 
+#Variable used for testing the forgot password functionality.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Variables for Email information relating to the forgot password functionality. 
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_PORT = 25
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your_gmail_account@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your_gmail_password'
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -121,6 +131,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+SESSION_COOKIE_AGE = 1800   # Expires at 1/2 hour
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = 'static/'
 

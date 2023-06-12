@@ -56,29 +56,33 @@
 			background-color: #FFA500;
 		}
 
-		.add-row-btn {
-			background-color: #2196F3;
+		.add-row-btn, .back-btn {
+			background-color: #0099CC;
 			color: #fff;
 			padding: 10px 20px;
 			border-radius: 5px;
 			font-weight: bold;
 			cursor: pointer;
-		}
-
-		.btn-container {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin-bottom: 20px;
+			font-size: 16px;
+			border: none;
 		}
 
 		.back-btn {
+			position: fixed;
+			bottom: 20px;
+			left: 20px;
+			text-decoration: none;
+		}
+
+		.add-row-btn {
+			position: absolute;
+			top: -40px;
+			right: 20px;
 			background-color: #4CAF50;
-			color: #fff;
-			padding: 10px 20px;
-			border-radius: 5px;
-			font-weight: bold;
-			cursor: pointer;
+		}
+
+		.btn-container {
+			position: relative;
 		}
 	</style>
 </head>
@@ -89,8 +93,7 @@
 	<div class="container">
 		<h1>Pending Applications</h1>
 		<div class="btn-container">
-			<a href="employeescreen" class="back-btn">Back</a>
-			<button class="add-row-btn" onclick ="addrow()">Add Row</button>
+			<button class="add-row-btn" onclick="addrow()">Add Row</button>
 		</div>
 		<table id="employeeid">
 	
@@ -104,7 +107,7 @@
 					<th>End Date</th>
 					<th>Cost</th>
 					<th>Duration</th>
-					<th></th>
+					<th>Current Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -123,52 +126,38 @@
 						<span class="tag inprocess">In Process</span>
 					</td>
 				</tr>
-				
-				
+			</tbody>
+		</table>
+		<div class="btn-container">
+			<a href="employeescreen" class="back-btn">Back</a>
+		</div>
 	</div>
-		
-		
-		
-	</body>
-		<script>
-		
-		function addrow(){
-	
-		var getTable = document.getElementById('employeeid');
-		var rows = getTable.insertRow();
-		
-		var employeeIdCell = rows.insertCell(0);
-		var employeeNameCell = rows.insertCell(1);
-		var trainingProviderCell = rows.insertCell(2);
-		var trainingProgramCell = rows.insertCell(3);
-		var startDateCell = rows.insertCell(4);
-		var endDateCell = rows.insertCell(5);
-		var costCell = rows.insertCell(6);
-		var durationCell = rows.insertCell(7);
 
-		employeeIdCell.innerHTML = 'eployeeId';
-		employeeNameCell.innerHTML = 'employeeName';
-		trainingProviderCell.innerHTML = 'trainingProvider';
-		trainingProgramCell.innerHTML = 'trainingProgram';
-		startDateCell.innerHTML = 'startDate';
-		endDateCell.innerHTML = 'endDate';
-		costCell.innerHTML = 'cost';
-		durationCell.innerHTML = 'duration';
-	   
+	<script>
+		function addrow() {
+			var getTable = document.getElementById('employeeid');
+			var rows = getTable.insertRow();
 
+			var employeeIdCell = rows.insertCell(0);
+			var employeeNameCell = rows.insertCell(1);
+			var trainingProviderCell = rows.insertCell(2);
+			var trainingProgramCell = rows.insertCell(3);
+			var startDateCell = rows.insertCell(4);
+			var endDateCell = rows.insertCell(5);
+			var costCell = rows.insertCell(6);
+			var durationCell = rows.insertCell(7);
+			var currentStatusCell = rows.insertCell(8);
 
-		
-		
-		
+			employeeIdCell.innerHTML = 'employeeId';
+			employeeNameCell.innerHTML = 'employeeName';
+			trainingProviderCell.innerHTML = 'trainingProvider';
+			trainingProgramCell.innerHTML = 'trainingProgram';
+			startDateCell.innerHTML = 'startDate';
+			endDateCell.innerHTML = 'endDate';
+			costCell.innerHTML = 'cost';
+			durationCell.innerHTML = 'duration';
+			currentStatusCell.innerHTML = '';
 		}	
-	
-		
-		</script>
-		
-	<footer class="gdpr-disclaimer">
-“I agree that where BJC contribution to course fees for any one training course exceeds €500 in any twelve month period, 
-50% of the cost will be repaid by me in the following circumstances. I will repay this money if I fail to complete the course, 
-if I fail the exams or should I decide to leave the organisation within twelve months of having completed the course to take up 
-another position. These arrangements may be altered at the discretion of Management”.
-	</footer>
+	</script>
+</body>
 </html>

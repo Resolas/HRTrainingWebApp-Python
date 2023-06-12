@@ -7,3 +7,9 @@ admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(InvestmentReport)
 admin.site.register(Training)
 admin.site.register(Evaluation)
+#admin.site.register(Employee)
+
+
+
+
+

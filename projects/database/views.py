@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 from .models import InvestmentReport, Evaluation
+from django.contrib.auth.views import(LogoutView, PasswordResetView,
+                                      PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView)
 # Create your views here.
 
 def signup(request):

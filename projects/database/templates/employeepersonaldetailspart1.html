@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-	
 	<style>
 		table {
 			border-collapse: collapse;
@@ -11,14 +10,15 @@
 			padding: 8px;
 			text-align: left;
 			border-bottom: 1px solid #ddd;
+			color: black;
 		}
 		th {
-			background-color: #3498DB;
-			color: white;
+			background-color: #F2F2F2;
+			color: black;
 		}
 		.view-btn, .back-btn {
-			background-color: #85C1E9 ;
-			color: white;
+			background-color:#0099CC;
+			color: black;
 			border: none;
 			padding: 10px 20px;
 			text-align: center;
@@ -30,6 +30,11 @@
 		}
 		.view-btn:hover, .back-btn:hover {
 			background-color: #E6B0AA;
+		}
+		footer {
+			color: black;
+			margin-top: 20px;
+			text-align: center;
 		}
 	</style>
 </head>
@@ -64,6 +69,7 @@
 					<button class="view-btn">View</button>
 				</td>
 			</tr>
+			<tr>
 				<td>003</td>
 				<td>Tom</td>
 				<td>Dunne</td>
@@ -72,6 +78,7 @@
 					<button class="view-btn">View</button>
 				</td>
 			</tr>	
+			<tr>
 				<td>004</td>
 				<td>Tom</td>
 				<td>Dunne</td>
@@ -80,6 +87,7 @@
 					<button class="view-btn">View</button>
 				</td>
 			</tr>
+			<tr>
 				<td>005</td>
 				<td>Gerry</td>
 				<td>Moore</td>
@@ -87,6 +95,7 @@
 				<td>
 					<button class="view-btn">View</button>
 				</td>	
+			</tr>
 		</tbody>
 	</table>
 	<button class="back-btn" onclick="goBack()">Back</button>
@@ -96,11 +105,6 @@
 			window.history.back();
 		}
 	</script>
-	
-	<footer class="gdpr-disclaimer">
-    “Ballymun Job Centre is committed to protecting the personal data of all our employees.
-     All personal information recorded and stored in the BJC Staff Training Database, will 
-     be held in accordance with General Data Protection Regulations (GDPR) and Data Protection Legislation”.
-     </footer>
+
 </body>
 </html>
