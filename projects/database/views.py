@@ -6,13 +6,14 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 from .models import InvestmentReport, Evaluation
-# Create your views here.
+from .forms import CustomUserForm
+# Create your views here
 
 def signup(request):
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -25,7 +26,7 @@ def signup(request):
         else:
             return render(request, 'signup.html', {'form': form})
     else:
-        form = UserCreationForm()
+        form = CustomUserForm()
         return render(request, 'signup.html', {'form': form})
 
 def home(request):

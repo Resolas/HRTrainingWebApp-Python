@@ -89,7 +89,14 @@
 	<div class="container">
 		<h1>Pending Applications</h1>
 		<div class="btn-container">
-			<a href="employeescreen" class="back-btn">Back</a>
+			<script>
+				function goBack() {
+				  window.history.back();
+				}
+				</script>
+				
+				<button onclick="goBack()">Back</button>
+			<!-- <a href="employeescreen" class="back-btn">Back</a> -->
 			<button class="add-row-btn" onclick ="addrow()">Add Row</button>
 		</div>
 		<table id="employeeid">
@@ -154,21 +161,11 @@
 		endDateCell.innerHTML = 'endDate';
 		costCell.innerHTML = 'cost';
 		durationCell.innerHTML = 'duration';
-	   
-
-
-		
-		
-		
 		}	
 	
 		
 		</script>
 		
 	<footer class="gdpr-disclaimer">
-“I agree that where BJC contribution to course fees for any one training course exceeds €500 in any twelve month period, 
-50% of the cost will be repaid by me in the following circumstances. I will repay this money if I fail to complete the course, 
-if I fail the exams or should I decide to leave the organisation within twelve months of having completed the course to take up 
-another position. These arrangements may be altered at the discretion of Management”.
 	</footer>
 </html>

@@ -101,5 +101,3 @@ class Training(models.Model):
     
     class Meta:
         db_table = 'training'
-
-
