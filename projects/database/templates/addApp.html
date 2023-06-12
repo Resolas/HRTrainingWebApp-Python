@@ -71,7 +71,7 @@
   </style>
 </head>
 <body>
-  <h1>New Application</h1>
+  <h1>Training Application</h1>
     <form method="post" action="{% url 'create-addApp' %}">
     {% csrf_token %}
     <div class="form-group">
@@ -136,7 +136,7 @@
     </div>
     <div class="btn-container">
       <button type="button" class="btn-back" onclick="goBack()">Back</button>
-      <button type="submit" class="btn-save">Save</button>
+      <button type="submit" class="btn-save">Submit</button>
     </div>
   </form>
 
