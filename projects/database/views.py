@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 from .models import InvestmentReport, Evaluation, Training
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ChangePasswordForm
 # Create your views here.
 
 def signup(request):
@@ -43,6 +43,24 @@ def register_view(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'employeeregistration.html', {'form': form})
+
+def changepassword(request):
+    form = ChangePasswordForm()
+    return render(request, 'changepassword.html', {'form': form})
+
+def changepassword(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            user = form.cleaned_data['username']
+            new_password = form.cleaned_data['new_password']
+            user.set_password(new_password)
+            user.save()
+            #messages.success(request, 'Password changed successfully.')
+            return redirect('/profile/admin')
+    else:
+        form = ChangePasswordForm()
+    return render(request, 'changepassword.html', {'form': form})
 
 #--------------------------------
 

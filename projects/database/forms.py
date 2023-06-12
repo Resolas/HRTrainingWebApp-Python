@@ -18,10 +18,14 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
 
-
-
-
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'password1', 'password2', 'email', 'first_name','last_name', 'position', 'funded_by', 'annual_salary']
+
+
+class ChangePasswordForm(forms.Form):
+    username = forms.ModelChoiceField(queryset=CustomUser.objects.all())
+    new_password = forms.CharField(widget=forms.PasswordInput)
+
+

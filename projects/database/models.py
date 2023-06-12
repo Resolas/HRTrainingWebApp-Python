@@ -91,6 +91,7 @@ class Training(models.Model):
         return self.training_name
     
 
+#--------------- INTERMEDIARIES FOR FOREIGN KEYS ----------------------
 
 class UserInvestment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

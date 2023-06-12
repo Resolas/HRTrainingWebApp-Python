@@ -32,6 +32,8 @@ urlpatterns = [
     #region Admin Section
     path('profile/admin/', views.admin, name='admin'),
 
+    path('profile/admin/changepassword', views.changepassword, name='changepassword'),
+
     path('profile/admin/application', views.application, name='application'),
 
     path('profile/admin/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
