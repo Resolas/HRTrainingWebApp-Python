@@ -64,31 +64,40 @@ class Evaluation(models.Model):
 
 class Training(models.Model):
     employee_name = models.CharField(max_length=45)
-    position = models.CharField(max_length=45)
+    employee_position = models.CharField(max_length=45)
     length_of_service = models.CharField(max_length=45)
     application_date = models.DateField()
-    training_name = models.CharField(max_length=45)
+    programme_name = models.CharField(max_length=45)
     training_provider = models.CharField(max_length=45)
     start_date = models.DateField()
     end_date = models.DateField()
     no_of_days = models.IntegerField()
-    training_hours = models.IntegerField()
-    application_status = models.IntegerField()
-    current_status = models.IntegerField()
     delivery_method = models.IntegerField()
-    aims_and_objective = models.TextField()
+    programme_aims = models.TextField()
+    programme_objectives = models.TextField()
     expected_outcome = models.TextField()
-    total_cost = models.IntegerField()
+
     bjc_contribution = models.TextField()
+    emp_contribution = models.IntegerField()
+    
+    training_hours = models.IntegerField(null=True)
+    application_status = models.IntegerField(null=True)
+    current_status = models.IntegerField(null=True)
+
+    total_cost = models.IntegerField(null=True)
+    
     employee_contribution = models.TextField()
     employee_qualification = models.TextField()
+    
+    employee_signed = models.TextField()
+    administrator_signed = models.TextField()
 
     class Meta:
         db_table = 'training'
 
 
     def __str__(self):
-        return self.training_name
+        return self.employee_name
     
 
 #--------------- INTERMEDIARIES FOR FOREIGN KEYS ----------------------

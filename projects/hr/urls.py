@@ -64,8 +64,8 @@ urlpatterns = [
     #region Staff Section
 
     path('profile/staff/', views.staff, name='staff.html'),
-
-    path('profile/staff/application/', views.application, name='application.html'),
+    
+    path('profile/staff/application/', views.applyfortraining, name='application.html'),
 
     path('profile/staff/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
 

@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 from .models import InvestmentReport, Evaluation, Training
-from .forms import CustomUserCreationForm, ChangePasswordForm
+from .forms import CustomUserCreationForm, ChangePasswordForm, TrainingCreationForm
 # Create your views here.
 
 def signup(request):
@@ -44,9 +44,9 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'employeeregistration.html', {'form': form})
 
-def changepassword(request):
-    form = ChangePasswordForm()
-    return render(request, 'changepassword.html', {'form': form})
+# def changepassword(request):
+#     form = ChangePasswordForm()
+#     return render(request, 'changepassword.html', {'form': form})
 
 def changepassword(request):
     if request.method == 'POST':
@@ -61,6 +61,19 @@ def changepassword(request):
     else:
         form = ChangePasswordForm()
     return render(request, 'changepassword.html', {'form': form})
+
+def applyfortraining(request):
+    if request.method == 'POST':
+        form = TrainingCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # messages.success(request, 'Application successful')
+            return redirect('/profile/staff')   # 'staff' will be changed to 'employee'
+        else:
+            print(form.errors)
+    else:
+        form = TrainingCreationForm()
+    return render(request, 'application.html', {'form': form})
 
 #--------------------------------
 
