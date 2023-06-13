@@ -6,13 +6,16 @@ class CustomUser(AbstractUser):
         ('admin', 'Admin'),
         ('employee', 'Employee'),
     )
+    #employee_id = models.IntegerField(auto_created=True,unique=True)
     role_name = models.CharField(max_length=10, choices=ROLES, null=True)
     email = models.CharField(max_length=45, null=True, unique=True)
     first_name = models.CharField(max_length=45, null=True)
     last_name = models.CharField(max_length=45, null=True)
     position = models.CharField(max_length=45, null=True)
     funded_by = models.CharField(max_length=45, null=True)
-    annual_salary = models.DecimalField(max_digits=10, decimal_places=0, null=True)
+    gross_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    daily_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    half_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
     def is_admin(self):
         return self.role_name == 'admin'
@@ -63,7 +66,7 @@ class Evaluation(models.Model):
         db_table = 'evaluation'
 
 class Training(models.Model):
-    employee_name = models.CharField(max_length=45)
+    employee_name = models.CharField(max_length=45, )
     employee_position = models.CharField(max_length=45)
     length_of_service = models.CharField(max_length=45)
     application_date = models.DateField()
@@ -72,6 +75,7 @@ class Training(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     no_of_days = models.IntegerField()
+    no_of_hours = models.IntegerField(null=True)
     delivery_method = models.IntegerField()
     programme_aims = models.TextField()
     programme_objectives = models.TextField()
