@@ -4,11 +4,16 @@
 
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">`
+    {% extends 'base.html'%}`
+    {% block content%}
    <head>
-        <title>Evaluation Part 1</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
+        <title>Training Application</title>
     </head>
     <body>
+        <div class="container"><h1>Application</h1></div>
         <div class="container">
           <form method="post">
             {% csrf_token %}
@@ -21,85 +26,7 @@
             All personal information recorded and stored in the BJC Staff Training Database, will
             be held in accordance with General Data Protection Regulations (GDPR) and Data Protection Legislation”.
         </footer>
-      
-        <style>
-            .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #F2F2F2;
-        }
-             body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: white;
-            }
-            h1 {
-                font-size: 36px;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-            .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            }
-            label {
-                display: block;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            input[type="text"],
-            select {
-                width: 100%;
-                padding: 10px;
-                border-radius: 5px;
-                border: none;
-                box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-                margin-bottom: 20px;
-                font-size: 16px;
-            }
-            .button-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .button {
-                padding: 10px 20px;
-                border-radius: 5px;
-                border: none;
-                color: #fff;
-                font-weight: bold;
-                background-color: #0099CC;
-                cursor: pointer;
-                font-size: 18px;
-                text-decoration: none;
-            }
-            .button:hover {
-                background-color: #0062CC;
-            }
-            .button:active {
-                background-color: #005CBF;
-            }
-            .gdpr-disclaimer {
-            margin-top: auto;
-            background-color: #F2F2F2;
-            padding: 10px;
-            font-size: 14px;
-            text-align: center;
-    }
-        </style>
+    
     </body>
+    {% endblock content %}
 </html>

@@ -25,7 +25,7 @@ class LoginForm(forms.Form):
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'password1', 'password2', 'email', 'first_name','last_name', 'position', 'funded_by',
+        fields = ['username', 'password1', 'password2','is_staff', 'email', 'first_name','last_name', 'position', 'funded_by',
                    'gross_salary', 'daily_salary', 'half_salary']
 
 class TrainingCreationForm(forms.ModelForm):
