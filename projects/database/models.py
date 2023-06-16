@@ -42,6 +42,15 @@ class InvestmentReport(models.Model):
         db_table = 'investment_report'
 
 class Evaluation(models.Model):
+    CERTS =  (
+    ('PLC','PLC'),
+    ('Advanced Certificate','Adv Certificate'),
+    ('Bachelors','Bachelors'),
+    ('Bachelors Hons','Bachelors Honours'),
+    ('Masters','Masters'),
+    ('Doctorate','Doctorate')
+    )
+
     employee_name = models.CharField(max_length=45)
     job_title = models.CharField(max_length=45)
     training_course = models.TextField()
@@ -49,7 +58,7 @@ class Evaluation(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     no_of_days = models.IntegerField()
-    certification = models.IntegerField()
+    certification = models.CharField(max_length=45,choices=CERTS)
     certification_reason = models.TextField()
     objective = models.TextField()
     topics = models.TextField()
@@ -65,10 +74,20 @@ class Evaluation(models.Model):
     class Meta:
         db_table = 'evaluation'
 
-class Training(models.Model):
+    def __str__(self):
+        return f"{self.employee_name} - {self.job_title}"
+
+class TrainingApplication(models.Model):
+    D_METHODS = (
+        ('webinar', 'Webinar'),
+        ('seminar', 'Seminar'),
+        ('zoom', 'Zoom'),
+        ('onsite','On Site')
+    )
+    
     employee_name = models.CharField(max_length=45, )
     employee_position = models.CharField(max_length=45)
-    length_of_service = models.CharField(max_length=45)
+    length_of_service = models.IntegerField()
     application_date = models.DateField()
     programme_name = models.CharField(max_length=45)
     training_provider = models.CharField(max_length=45)
@@ -76,7 +95,7 @@ class Training(models.Model):
     end_date = models.DateField()
     no_of_days = models.IntegerField()
     no_of_hours = models.IntegerField(null=True)
-    delivery_method = models.IntegerField()
+    delivery_method = models.CharField(choices=D_METHODS, max_length=45)
     programme_aims = models.TextField()
     programme_objectives = models.TextField()
     expected_outcome = models.TextField()
@@ -85,8 +104,7 @@ class Training(models.Model):
     emp_contribution = models.IntegerField()
     
     training_hours = models.IntegerField(null=True)
-    application_status = models.IntegerField(null=True)
-    current_status = models.IntegerField(null=True)
+    application_status = models.CharField(null=True, default='pending',max_length=45)
 
     total_cost = models.IntegerField(null=True)
     
@@ -125,7 +143,7 @@ class UserEvaluation(models.Model):
 
 class UserTraining(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(TrainingApplication, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'user_training'

@@ -10,7 +10,7 @@
 <body>
     <div class="container"><h1>Register Employee</h1></div>
     <div class="container">
-        <form method="post">
+        <form method="post" action="/success.html">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="mgt-4 mr-5 button is-small is-link" type="submit">Register Employee</button>

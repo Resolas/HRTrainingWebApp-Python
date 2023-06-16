@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Successfully Saved</title>
+  <style>
+    body {
+      background-color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 50vh;
+    }
+    
+    .message {
+      color: blue;
+      font-size: 44px;
+      text-align: top;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="message">Thank you, saved successfully!</p>
+    <p class="new-paragraph">... redirecting you to the homepage.</p>
+  </div>
+</body>
+</html>
+<script>
+  setTimeout(function() {
+    window.location.href = "/profile/admin/";
+  }, 3000); // Redirect after 3 seconds (3000 milliseconds)
+</script>

@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from database import views
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('staff/', views.staff, name='staff'),
@@ -26,7 +28,7 @@ urlpatterns = [
     path('signup/',views.signup, name='signup'),
     path('signout/',views.signout, name='signout'),
     path('profile/',views.profile, name='profile'),
-    
+    path('success.html', views.success_view, name='success'),
 
 
     #region Admin Section
@@ -57,6 +59,9 @@ urlpatterns = [
     #path('profile/admin/reports/', views.test_table2,name='reports'),
     path('profile/admin/reports/', views.display_InvestmentReport, name='reports'),
 
+    path('profile/admin/create_evaluation/',
+         views.create_evaluation, name='create_evaluation.html'),
+
     
 
     #endregion
@@ -69,10 +74,15 @@ urlpatterns = [
 
     path('profile/staff/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
 
-    path('profile/staff/evaluationpart1/',
-         views.evaluationpart1, name='evaluationpart1'),
-    path('profile/staff/evaluationpart1/evaluationpart2/',
-          views.evaluationpart2, name='evaluationpart2'),
+    # path('profile/staff/evaluationpart1/',
+    #      views.evaluationpart1, name='evaluationpart1'),
+    # path('profile/staff/evaluationpart1/evaluationpart2/',
+    #       views.evaluationpart2, name='evaluationpart2'),
+
+    path('profile/staff/create_evaluation/',
+         views.create_evaluation, name='create_evaluation.html'),
 
     #endregion
 ]
+
+handler404 = 'database.views.get_404'

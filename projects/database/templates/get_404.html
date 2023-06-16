@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+    // BACK BUTTON
+    function goBack()
+    {
+      window.history.back();
+    }
+  </script>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
+    <title>404 Not Found</title>
+    <style>
+        /* Custom CSS styles for your 404 page */
+        body {
+            background-color: #F5F5F5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333333;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            background-color: #0099CC;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0062CC;
+        }
+        .button:active {
+            background-color: #005CBF;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404 Not Found</h1>
+        <p>The requested page was not found.</p>
+            <a class="button" onclick="goBack()">Back</a>
+    </div>
+</body>
+</html>

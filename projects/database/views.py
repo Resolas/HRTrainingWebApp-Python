@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
-from .models import InvestmentReport, Evaluation, Training
-from .forms import CustomUserCreationForm, ChangePasswordForm, TrainingCreationForm
+#from database.views import get_404
+from .models import InvestmentReport, Evaluation, TrainingApplication
+from .forms import CustomUserCreationForm, ChangePasswordForm, TrainingCreationForm, EvaluationForm
+
 # Create your views here.
 
 def signup(request):
@@ -43,6 +45,21 @@ def register_view(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'employeeregistration.html', {'form': form})
+
+
+def success_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the form data to the database
+            return render(request, 'success.html')
+        else:
+            # If the form is not valid, re-render the form page with the errors
+            return render(request, 'employeeregistration.html', {'form': form})
+    else:
+        # If the request method is not POST, render the form page again
+        form = CustomUserCreationForm()
+        return render(request, 'employeeregistration.html', {'form': form})
 
 # def changepassword(request):
 #     form = ChangePasswordForm()
@@ -155,6 +172,9 @@ def reports(request):
 #     context = {'currentPage': currentPage}
 #     return render(request, 'my_template.html', context)
 
+def get_404(request, exception):
+    return render(request, 'get_404.html', status=404)
+
 #endregion
 
 
@@ -168,7 +188,7 @@ def display_InvestmentReport(request):
     return render(request, 'reports.html', {'data': data})
 
 def display_Training(request):
-    data = Training.objects.all()
+    data = TrainingApplication.objects.all()
     return render(request, 'reports.html', {'data': data})
 
 # Staff Section Pages
@@ -177,3 +197,15 @@ def application(request):
     
 def pendingapplication(request):
     return render(request, 'pendingapplication.html')
+
+def create_evaluation(request):
+    evaluations = Evaluation.objects.all()
+    if request.method == 'POST':
+        form = EvaluationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Handle successful form submission
+    else:
+        form = EvaluationForm()
+    context = {'form': form, 'evaluations':evaluations}
+    return render(request, 'create_evaluation.html', context)
