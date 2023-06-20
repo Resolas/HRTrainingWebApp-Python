@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 #from database.views import get_404
-from .models import InvestmentReport, Evaluation, TrainingApplication
+from .models import InvestmentReport, Evaluation, TrainingApplication, CustomUser
 from .forms import CustomUserCreationForm, ChangePasswordForm, TrainingCreationForm, EvaluationForm
 
 # Create your views here.
@@ -133,6 +133,9 @@ def signout(request):
     logout(request)
     return redirect('/')
 
+def training_evaluations_list(request):
+    return render(request, 'training_evaluations_list.html')
+
 def evaluationpart1(request):
     return render(request, 'evaluationpart1.html')
 
@@ -181,7 +184,7 @@ def get_404(request, exception):
 
 def display_Evaluation(request):
     data = Evaluation.objects.all()
-    return render(request, 'evaluationpart1.html', {'data' : data})
+    return render(request, 'training_evaluations_list.html', {'data' : data})
 
 def display_InvestmentReport(request):
     data = InvestmentReport.objects.all()  # Retrieve all instances of YourModel from the database
@@ -209,3 +212,140 @@ def create_evaluation(request):
         form = EvaluationForm()
     context = {'form': form, 'evaluations':evaluations}
     return render(request, 'create_evaluation.html', context)
+
+
+
+
+
+#region Training Course Application Functions
+
+from django.contrib.auth.decorators import login_required
+
+
+from django.shortcuts import redirect
+
+def course_application(request):
+    if request.method == 'POST':
+        form = TrainingCreationForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.employee_name = request.user.get_full_name()  # Set the employee name as the full name of the logged-in user
+            application.save()
+            form.save_m2m()  # Save the many-to-many relationships if any
+            application.users.add(request.user)  # Associate the logged-in user with the application
+            return redirect('course_application_list')  # Redirect to the list view after successful submission
+    else:
+        form = TrainingCreationForm()
+    context = {'form': form}
+    return render(request, 'course_application.html', context)
+
+
+
+#Function to create a list view of pending applications
+#This view handles the list of applciations for the admin to view
+def course_application_list(request):
+    user = request.user
+    applications = TrainingApplication.objects.filter(usertraining__user=user)
+    total_applications = applications.count()
+    return render(request, 'course_application_list.html', {'applications': applications, 'total_applications': total_applications})
+
+#Function to show the details of the pending applications
+#This view handles the details of applications which are viewable for the admin
+def employee_training_application_details(request, id):
+    application = get_object_or_404(TrainingApplication, id=id)
+    return render(request, 'employee_training_application_details.html', {"application":application})
+
+#endregion
+
+
+#region Training Application
+
+def edit_training_application(request, app_id):
+    application = get_object_or_404(TrainingApplication, id=app_id)
+    if request.method == 'POST':
+        form = TrainingCreationForm(request.POST, instance=application)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/staff')
+        else:
+            print(form.errors)
+    else:
+        form = TrainingCreationForm(instance=application)
+    
+    return render(request, 'edit_application.html', {'form': form, 'application': application})
+
+def delete_training_application(request, app_id):
+    application = get_object_or_404(TrainingApplication, id=app_id)
+    if request.method == 'POST':
+        application.delete()
+        return redirect('/profile/staff')
+    
+    return render(request, 'delete_application.html', {'application': application})
+
+def approve_application(request, app_id):
+    application = get_object_or_404(TrainingApplication, id=app_id)
+    application.approval_status = True
+    application.save()
+    return redirect('training_application_details', app_id=app_id)
+
+def deny_application(request, app_id):
+    application = get_object_or_404(TrainingApplication, id=app_id)
+    application.denial_status = True
+    application.save()
+    return redirect('training_application_details', app_id=app_id)
+
+def training_applications_list(request):
+    applications = TrainingApplication.objects.all()
+    total_applications = applications.count()
+    return render(request, 'training_applications_list.html', {'applications': applications, "total_applications": total_applications})
+
+#Function to show the details of the pending applications
+#This view handles the details of applications which are viewable for the admin
+def training_application_details(request, app_id):
+    application = get_object_or_404(TrainingApplication, id=app_id)
+    return render(request, 'training_application_details.html', {'application': application})
+
+
+
+#endregion
+
+#region Employee Training Applications
+#Function to create a list view of pending applications
+#This view handles the list of applciations for the admin to view
+def employee_training_applications_list(request):
+    applications = TrainingApplication.objects.all()
+    total_applications = applications.count()
+    return render(request, 'employee_training_applications_list.html', {'applications': applications, "total_applications": total_applications})
+
+#Function to show the details of the pending applications
+#This view handles the details of applications which are viewable for the admin
+def employee_training_application_details(request, id):
+    application = get_object_or_404(TrainingApplication, id=id)
+    return render(request, 'employee_training_application_details.html', {"application":application})
+
+def evaluation_applications_list(request):
+    evaluations = Evaluation.objects.all()
+    total_evaluations = evaluations.count()
+    return render(request, 'training_evaluations_list.html', {'evaluations': evaluations, "total_evaluations": total_evaluations})
+
+#endregion
+
+#region Evaluation Form
+
+def completed_evaluation(request, evaluation_id):
+    evaluation = get_object_or_404(Evaluation, id=evaluation_id)
+
+    if request.method == 'POST':
+        form = EvaluationForm(request.POST, instance=evaluation)
+        if form.is_valid():
+            form.save()
+            # Handle successful form submission
+            return redirect('staff.html')  # Redirect to the evaluation list page
+    else:
+        form = EvaluationForm(instance=evaluation)
+        
+    context = {'form': form}
+    return render(request, 'completed_evaluation.html', context)
+
+
+#endregion

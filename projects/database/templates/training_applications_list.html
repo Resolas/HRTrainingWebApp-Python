@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+​
+<div class="container">
+    <section class="jumbotron jumbotron-fluid bg-info text-white">
+        <div class="container">
+            <h1 class="display-4">
+                All employee applications
+            </h1>
+            <p class="lead">
+                Total active applications: {{ app_total }}
+            </p>
+        </div>
+    </section>
+    {% for app in applications %}
+    
+    <div class="card">
+        <h5 class="card-header">{{ app.employee_name }}</h5>
+        <a href="{% url 'training_application_details' app.id %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ app.employee_position}}</h5>
+                <p class="card-text">€{{ app.employee_contribution }}</p>
+                <a href="/profile/admin/" class="btn btn-primary">Back</a>
+                <a href="{% url 'approve_application' app.id %}" class="btn btn-primary">Approve</a>
+                <a href="{% url 'deny_application' app.id %}" class="btn btn-danger">Deny</a>
+​
+            </div>
+        </a>
+      </div>
+    {% endfor %}
+    <a href="" class="btn btn-primary mr-3">
+        Register another user
+    </a>
+    <a href="" class="btn btn-primary mr-3">
+        Home
+    </a>
+    <a href="" class="btn btn-primary mr-3">
+        View inactive employees
+    </a>
+</div>
+​
+{% endblock content %}

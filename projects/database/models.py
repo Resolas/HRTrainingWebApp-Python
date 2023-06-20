@@ -17,11 +17,19 @@ class CustomUser(AbstractUser):
     daily_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     half_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
+    def get_full_name(self):
+        # Customize this method based on how you store the first name and last name fields in your model
+        full_name = f"{self.first_name} {self.last_name}"
+        return full_name.strip()
+
     def is_admin(self):
         return self.role_name == 'admin'
     
     def is_employee(self):
         return self.role_name == 'employee'
+    
+    def __str__(self):
+        return self.username
     
     class Meta:
         db_table = 'custom_user'
@@ -85,6 +93,7 @@ class TrainingApplication(models.Model):
         ('onsite','On Site')
     )
     
+    users = models.ManyToManyField(CustomUser, through='UserTraining')
     employee_name = models.CharField(max_length=45, )
     employee_position = models.CharField(max_length=45)
     length_of_service = models.IntegerField()
@@ -99,6 +108,8 @@ class TrainingApplication(models.Model):
     programme_aims = models.TextField()
     programme_objectives = models.TextField()
     expected_outcome = models.TextField()
+    approval_status = models.BooleanField(null=True)
+    denial_status = models.BooleanField(null=True)
 
     bjc_contribution = models.TextField()
     emp_contribution = models.IntegerField()
@@ -142,7 +153,7 @@ class UserEvaluation(models.Model):
         db_table = 'user_evaluation'
 
 class UserTraining(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_trainings')
     training = models.ForeignKey(TrainingApplication, on_delete=models.CASCADE)
 
     class Meta:

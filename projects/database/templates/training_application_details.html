@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+​
+{% block content %}
+​
+<div class="container">
+​
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="display-4">
+                        Application Details
+                    </h1>
+                    <p>Name: {{ application.employee_name }}</p>
+                    <p>ID: {{ application.id }}</p>
+                    <p>Topics: {{ application.programme_name }}</p>
+                    <p>No. Days: {{ application.no_of_days }}</p>
+                    {% if application.approval_status %}
+                        <p>Status: Approved</p>
+                    {% else %}
+                        <p>Status: Pending</p>
+                    {% endif %}
+                    {% if application.denial_status %}
+                    <p>Status: Denied</p>
+                    {% endif %}
+                    <a href="" class="btn btn-light btn-outline-dark btn-block">
+                        All Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+​
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <a href="{% url 'approve_application' application.id %}" class="btn btn-primary">Approve</a>
+                    <a href="{% url 'deny_application' application.id %}" class="btn btn-danger">Deny</a> -->
+                    <!-- <a href="{% url 'edit_training_application' application.id %}" class="btn btn-primary">Edit Application</a>
+                    <a href="{% url 'delete_application' application.id %}" class="btn btn-primary">Delete Application</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+​
+</div>
+​
+{% endblock content %}

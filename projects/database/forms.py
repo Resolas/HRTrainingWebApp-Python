@@ -1,6 +1,7 @@
 from django import forms
 from .models import CustomUser, TrainingApplication, Evaluation
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
@@ -38,6 +39,17 @@ class TrainingCreationForm(forms.ModelForm):
                   'training_provider','start_date','end_date','no_of_days','no_of_hours','delivery_method','programme_aims',
                   'programme_objectives','expected_outcome','bjc_contribution','emp_contribution',
                   'employee_signed','administrator_signed']
+        
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request', None)  # Pop the 'request' argument from kwargs
+        super().__init__(*args, **kwargs)
+        
+        if request: # and request.user.is_authenticated
+            user = request.user
+            self.fields['employee_name'].disabled = True
+            self.fields['employee_name'].initial = user
+            self.fields['employee_position'].initial = user.position
+        
 
 class ChangePasswordForm(forms.Form):
     username = forms.ModelChoiceField(queryset=CustomUser.objects.all())

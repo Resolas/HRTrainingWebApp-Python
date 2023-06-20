@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from database import views
 
-
+app_name = 'database'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +28,7 @@ urlpatterns = [
     path('signup/',views.signup, name='signup'),
     path('signout/',views.signout, name='signout'),
     path('profile/',views.profile, name='profile'),
-    path('success.html', views.success_view, name='success'),
+        path('success.html', views.success_view, name='success'),
 
 
     #region Admin Section
@@ -36,15 +36,15 @@ urlpatterns = [
 
     path('profile/admin/changepassword', views.changepassword, name='changepassword'),
 
-    path('profile/admin/application', views.application, name='application'),
+    # path('profile/admin/application', views.application, name='application'),
 
-    path('profile/admin/pendingapplication/',views.pendingapplication, name='pendingapplication.html'),
+    path('profile/admin/training_applications_list/',views.training_applications_list, name='training_applications_list.html'),
 
     path('profile/admin/employeeregistration', views.register_view, name='employeeregistration'),
 
-    path('profile/admin/evaluationpart1/',
-         views.evaluationpart1, name='evaluationpart1'),
-    path('profile/admin/evaluationpart1/evaluationpart2/',
+    path('profile/admin/training_evaluations_list/',
+         views.training_evaluations_list, name='training_evaluations_list'),
+    path('profile/admin/training_evaluations_list/evaluationpart2/',
           views.evaluationpart2, name='evaluationpart2'),
 
     path('profile/admin/employeepersonaldetailspart1/', views.employeepersonaldetailspart1,
@@ -79,10 +79,57 @@ urlpatterns = [
     # path('profile/staff/evaluationpart1/evaluationpart2/',
     #       views.evaluationpart2, name='evaluationpart2'),
 
-    path('profile/staff/create_evaluation/',
-         views.create_evaluation, name='create_evaluation.html'),
+    path('profile/staff/completed_evaluation/',
+        views.completed_evaluation, name='completed_evaluation'),
+
+    path('profile/staff/create_evaluation/', views.create_evaluation, name='create_evaluation'),
 
     #endregion
+
+    #region Training Course Application URLS
+
+    path('profile/staff/course_application/',views.course_application, name='course_application'),
+
+    # #URL path for pending applicaitons page
+    # path('profile/staff/training_applications_list',views.training_applications_list, name='training_applications_list'),
+    # approve employee application
+    # path('approve/<int:app_id>/', views.approve_application, name='approve_application'),
+    # #Deny Path 
+    # path('deny/<int:app_id>/', views.deny_application, name='deny_application'),
+    # # #URL path for details of each application
+    # path('training_application_details/<int:app_id>/',views.training_application_details,
+    #       name='training_application_details'),
+    # #URL path for pending applicaitons page
+    path('profile/staff/course_application_list',views.course_application_list,
+          name='course_application_list'),
+    # #URL path for details of each application
+    # path('employee_training_application_details/<int:id>/',views.employee_training_application_details,
+        #   name='employee_training_application_details'),
+
+    #endregion
+
+    #region Chris URLs
+
+    # #URL path for pending applicaitons page
+    # path('profile/staff/training_applications_list',views.training_applications_list, name='training_applications_list'),
+    # approve employee application
+    path('approve/<int:app_id>/', views.approve_application, name='approve_application'),
+    #Deny Path for denying application
+    path('deny/<int:app_id>/', views.deny_application, name='deny_application'),
+    #URL path for details of each application
+    path('training_application_details/<int:app_id>/',views.training_application_details, name='training_application_details'),
+    #URL path for pending applications page
+    path('profile/staff/employee_training_applications_list',views.employee_training_applications_list, name='employee_training_applications_list'),
+    #URL path for details of each application
+    path('employee_training_application_details/<int:id>/',views.employee_training_application_details, name='employee_training_application_details'),
+    #URL Path for editing training application
+    path('edit/<int:app_id>/', views.edit_training_application, name='edit_training_application'),
+    #URL Path to delete application
+    path('delete/<int:app_id>/', views.delete_training_application, name='delete_application'),
+
+    #endregion
+
+
 ]
 
 handler404 = 'database.views.get_404'

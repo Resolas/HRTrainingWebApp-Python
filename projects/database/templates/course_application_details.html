@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="display-4">
+                        Application Details
+                    </h1>
+                    <p>Name: {{ application }}</p>
+                    <p>ID: {{ application.id }}</p>
+                    <p>Topics: {{ application.topics }}</p>
+                    <p>No. Days: {{ application.no_of_days }}</p>
+                    <a href="" class="btn btn-light btn-outline-dark btn-block">
+                        All Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
