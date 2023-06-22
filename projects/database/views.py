@@ -264,7 +264,7 @@ def edit_training_application(request, application_id):
     form = TrainingCreationForm(request.POST or None, instance=application)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect('course_application_list.html', application_id=application.id)
+        return redirect('course_application_list')
 
     context = {'application': application, 'form': form}
     return render(request, 'edit_training_application.html', context)
@@ -274,7 +274,7 @@ def delete_training_application(request, app_id):
     application = get_object_or_404(TrainingApplication, id=app_id)
     if request.method == 'POST':
         application.delete()
-        return redirect('/profile/staff')
+        return redirect('course_application_list')
     
     return render(request, 'delete_application.html', {'application': application})
 

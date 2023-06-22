@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h2>Delete Application?</h2>
+        <!-- Add your form fields and update the application data -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <h2><button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'course_application_list' %}" class="btn btn-secondary mt-3">Return to Applications</a> </h2>
+            
+            
+        </form>
+    </div>
+{% endblock %}

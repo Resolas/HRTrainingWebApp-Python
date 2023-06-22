@@ -8,17 +8,17 @@
             <div class="card-body shadow-lg p-3 mb-2 bg-white rounded">
                 <h4 class="card-title">Course Name: {{ application.training.programme_name }}</h4>
                 {% if application.training.application_status == 'approved' %}
-                    <h4>Status: <span class="badge badge-success">Approved</span></h4>
+                    <h4>Status: <span class="btn btn-sm btn-success">Approved</span></h4>
                 {% elif application.training.application_status == 'denied' %}
-                    <h4>Status: <span class="badge badge-danger">Denied</span></h4>
+                    <h4>Status: <span class="btn btn-sm btn-danger">Denied</span></h4>
                 {% else %}
-                    <h4>Status: <span class="badge badge-primary">Pending Approval</span></h4>
+                    <h4>Status: <span class="btn btn-sm btn-secondary">Pending Approval</span></h4>
                 {% endif %}
                 
                 {% if application.training.user == request.user.user %}
                     {% comment %} <a href="{% url 'application_detail' application.id %}" class="btn btn-sm btn-info">View Application</a> {% endcomment %}
                     <a href="{% url 'edit_training_application' application.id %}" class="btn btn-sm btn-primary">Edit Application</a>
-                    {% comment %} <a href="{% url 'delete_application' application.training.id %}" class="btn btn-sm btn-danger">Delete Application</a> {% endcomment %}
+                    <a href="{% url 'delete_application' application.training.id %}" class="btn btn-sm btn-danger">Delete Application</a>
                 {% endif %}
             </div>
         </div>
