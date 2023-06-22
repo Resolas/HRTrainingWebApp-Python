@@ -2,6 +2,7 @@ from django import forms
 from .models import CustomUser, TrainingApplication, Evaluation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from datetime import date
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
@@ -40,6 +41,21 @@ class TrainingCreationForm(forms.ModelForm):
                   'programme_objectives','expected_outcome','bjc_contribution','emp_contribution',
                   'employee_signed','administrator_signed']
         
+        
+    widgets = {
+            'application_date': forms.DateInput(
+                attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;', 'value': date.today().strftime('%d/%m/%Y'), 'readonly': 'readonly'}
+            ),
+            'start_date': forms.DateInput(
+                attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;',
+                    'oninput': "this.value = this.value.replace(/[^0-9/]/g, '')"}
+            ),
+            'end_date': forms.DateInput(
+                attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;',
+                    'oninput': "this.value = this.value.replace(/[^0-9/]/g, '')"}
+            ),
+        }
+        
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)  # Pop the 'request' argument from kwargs
         super().__init__(*args, **kwargs)
@@ -49,6 +65,7 @@ class TrainingCreationForm(forms.ModelForm):
             self.fields['employee_name'].disabled = True
             self.fields['employee_name'].initial = user
             self.fields['employee_position'].initial = user.position
+    
         
 
 class ChangePasswordForm(forms.Form):

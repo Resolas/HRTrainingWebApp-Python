@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-​
+
 <div class="container">
     <h2 class="mb-4">{{ user|title }}'s Course Application List</h2>
     {% for application in applications %}
@@ -10,16 +10,32 @@
                 {% if application.training.application_status == 'approved' %}
                     <h4>Status: <span class="btn btn-sm btn-success">Approved</span></h4>
                 {% elif application.training.application_status == 'denied' %}
-                    <h4>Status: <span class="btn btn-sm btn-danger">Denied</span></h4>
+                    <h4>Status:
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#denyModal{{ application.id }}">Denied</button>
+                    </h4>
                 {% else %}
                     <h4>Status: <span class="btn btn-sm btn-secondary">Pending Approval</span></h4>
                 {% endif %}
                 
                 {% if application.training.user == request.user.user %}
-                    {% comment %} <a href="{% url 'application_detail' application.id %}" class="btn btn-sm btn-info">View Application</a> {% endcomment %}
                     <a href="{% url 'edit_training_application' application.id %}" class="btn btn-sm btn-primary">Edit Application</a>
                     <a href="{% url 'delete_application' application.training.id %}" class="btn btn-sm btn-danger">Delete Application</a>
                 {% endif %}
+            </div>
+        </div>
+
+        <!-- Denial Explanation Modal -->
+        <div class="modal fade" id="denyModal{{ application.id }}" tabindex="-1" role="dialog" aria-labelledby="denyModal{{ application.id }}Label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Denial Explanation</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ application.training.reason_for_denial }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     {% empty %}
@@ -29,9 +45,7 @@
     <a href="{% url 'course_application' %}" class="btn btn-primary">
         Add another application
     </a>
-    {% comment %} <a href="{% url 'index' %}" class="btn btn-primary"> {% endcomment %}
-        Home
-    </a>
+
 </div>
-​
+
 {% endblock content %}

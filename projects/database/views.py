@@ -290,8 +290,11 @@ def approve_application(request, app_id):
 @user_passes_test(lambda user: user.is_staff)
 def deny_application(request, app_id):
     application = get_object_or_404(TrainingApplication, id=app_id)
-    application.application_status = 'denied'
-    application.save()
+    if request.method == 'POST':
+        reason = request.POST.get('reason', '')
+        application.application_status = 'denied'
+        application.reason_for_denial = reason
+        application.save()
     return redirect('training_application_details', app_id=app_id)
 
 @login_required

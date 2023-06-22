@@ -116,6 +116,7 @@ class TrainingApplication(models.Model):
     
     training_hours = models.IntegerField(null=True)
     application_status = models.CharField(null=True, default='pending',max_length=45)
+    reason_for_denial = models.TextField(max_length=256, blank=True)
 
     total_cost = models.IntegerField(null=True)
     

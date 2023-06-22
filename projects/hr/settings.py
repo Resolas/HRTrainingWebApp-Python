@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from django.conf.locale.en import formats as en_formats
 import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,6 +123,8 @@ AUTH_USER_MODEL = 'database.CustomUser'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+
+en_formats.DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
 USE_I18N = True
 
