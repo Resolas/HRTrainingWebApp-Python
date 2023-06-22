@@ -2,76 +2,35 @@
 {% block content %}
 ​
 <div class="container">
-    <section class="jumbotron jumbotron-fluid bg-info text-white">
-        <div class="container">
-            <h1 class="display-4">
-                All employee applications
-            </h1>
-            <p class="lead">
-                Total active applications: {{ app_total }}
-            </p>
+    <h2 class="mb-4">{{ user|title }}'s Course Application List</h2>
+    {% for application in applications %}
+        <div class="card mb-4">
+            <div class="card-body shadow-lg p-3 mb-2 bg-white rounded">
+                <h4 class="card-title">Course Name: {{ application.training.programme_name }}</h4>
+                {% if application.training.application_status == 'approved' %}
+                    <h4>Status: <span class="badge badge-success">Approved</span></h4>
+                {% elif application.training.application_status == 'denied' %}
+                    <h4>Status: <span class="badge badge-danger">Denied</span></h4>
+                {% else %}
+                    <h4>Status: <span class="badge badge-primary">Pending Approval</span></h4>
+                {% endif %}
+                
+                {% if application.training.user == request.user.user %}
+                    {% comment %} <a href="{% url 'application_detail' application.id %}" class="btn btn-sm btn-info">View Application</a> {% endcomment %}
+                    <a href="{% url 'edit_training_application' application.id %}" class="btn btn-sm btn-primary">Edit Application</a>
+                    {% comment %} <a href="{% url 'delete_application' application.training.id %}" class="btn btn-sm btn-danger">Delete Application</a> {% endcomment %}
+                {% endif %}
+            </div>
         </div>
-    </section>
-    {% for app in applications %}
-    <div class="card">
-        <h5 class="card-header">{{ app.employee_name }}</h5>
-        <a href="{% url 'training_application_details' app.id %}">
-            <div class="card-body">
-                <h5 class="card-title">{{ app.employee_position}}</h5>
-                <p class="card-text">€{{ app.employee_contribution }}</p>
-                <a href="/profile/staff/" class="btn btn-primary">Back</a>
-                <!-- <a href="{% url 'approve_application' app.id %}" class="btn btn-primary">Approve</a>
-                <a href="{% url 'deny_application' app.id %}" class="btn btn-danger">Deny</a> -->
-               
-​
-            </div>
-        </a>
-      </div>
-    <!-- <div class="card mt-3">
-        <a href="{% url 'training_application_details' app.id %}">
-            <div class="card-body">
-                <div class="media">
-                    <img src="https://bulma.io/images/placeholders/96x96.png"
-                         class="mr-3 rounded-circle" alt="Placeholder image" width="64" height="64">
-                    <div class="media-body">
-                        <h4 class="card-title">{{ app.employee_name }}</h4>
-                        <p class="card-subtitle mb-2 text-muted">{{ app.employee_position}}</p>
-                        <p class="card-text">{{ app.length_of_service}}</p>
-                        <p class="card-text">{{ app.application_date}}</p>
-                        <p class="card-text">{{ app.programme_name}}</p>
-                        <p class="card-text">{{ app.training_provider}}</p>
-                        <p class="card-text">{{ app.start_date}}</p>
-                        <p class="card-text">{{ app.end_date}}</p>
-                        <p class="card-text">{{ app.no_of_days}}</p>
-                        <p class="card-text">{{ app.delivery_method}}</p>
-                        <p class="card-text">{{ app.programme_aims}}</p>
-                        <p class="card-text">{{ app.programme_objectives}}</p>
-                        <p class="card-text">{{ app.expected_outcome}}</p>
-                        <p class="card-text">€{{ app.bjc_contribution }}</p>
-                        <p class="card-text">{{ app.emp_contribution}}</p>
-                        <p class="card-text">{{ app.training_hours}}</p>
-                        <p class="card-text">{{ app.application_status}}</p>
-                        <p class="card-text">{{ app.current_status}}</p>
-                        <p class="card-text">€{{ app.total_cost }}</p>
-                        <p class="card-text">€{{ app.employee_contribution }}</p>
-                        <p class="card-text">{{ app.employee_qualification}}</p>
-                        <p class="card-text">{{ app.employee_signed}}</p>
-                        <p class="card-text">{{ app.administrator_signed}}</p>
-​
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div> -->
+    {% empty %}
+        <p>No applications found.</p>
     {% endfor %}
-    <a href="" class="btn btn-primary mr-3">
-        Register another user
+
+    <a href="{% url 'course_application' %}" class="btn btn-primary">
+        Add another application
     </a>
-    <a href="" class="btn btn-primary mr-3">
+    {% comment %} <a href="{% url 'index' %}" class="btn btn-primary"> {% endcomment %}
         Home
-    </a>
-    <a href="" class="btn btn-primary mr-3">
-        View inactive employees
     </a>
 </div>
 ​

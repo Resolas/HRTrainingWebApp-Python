@@ -21,8 +21,8 @@
                 <h5 class="card-title">{{ app.employee_position}}</h5>
                 <p class="card-text">€{{ app.employee_contribution }}</p>
                 <a href="/profile/admin/" class="btn btn-primary">Back</a>
-                <a href="{% url 'approve_application' app.id %}" class="btn btn-primary">Approve</a>
-                <a href="{% url 'deny_application' app.id %}" class="btn btn-danger">Deny</a>
+                {% comment %} <a href="{% url 'approve_application' app.id %}" class="btn btn-primary">Approve</a>
+                <a href="{% url 'deny_application' app.id %}" class="btn btn-danger">Deny</a> {% endcomment %}
 ​
             </div>
         </a>

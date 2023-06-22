@@ -5,8 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
+from django.contrib.auth.decorators import user_passes_test, login_required
 #from database.views import get_404
-from .models import InvestmentReport, Evaluation, TrainingApplication, CustomUser
+from .models import InvestmentReport, Evaluation, TrainingApplication, CustomUser, UserTraining
 from .forms import CustomUserCreationForm, ChangePasswordForm, TrainingCreationForm, EvaluationForm
 
 # Create your views here.
@@ -33,6 +34,8 @@ def signup(request):
     
 
 #-------------------------
+@login_required
+@user_passes_test(lambda user: user.is_staff)
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -65,6 +68,8 @@ def success_view(request):
 #     form = ChangePasswordForm()
 #     return render(request, 'changepassword.html', {'form': form})
 
+@login_required
+@user_passes_test(lambda user: user.is_staff)
 def changepassword(request):
     if request.method == 'POST':
         form = ChangePasswordForm(request.POST)
@@ -79,6 +84,7 @@ def changepassword(request):
         form = ChangePasswordForm()
     return render(request, 'changepassword.html', {'form': form})
 
+@login_required
 def applyfortraining(request):
     if request.method == 'POST':
         form = TrainingCreationForm(request.POST)
@@ -195,12 +201,14 @@ def display_Training(request):
     return render(request, 'reports.html', {'data': data})
 
 # Staff Section Pages
-def application(request):
-    return render(request, 'application.html')
-    
+# def application(request):
+#     return render(request, 'application.html')
+
+@login_required
 def pendingapplication(request):
     return render(request, 'pendingapplication.html')
 
+@login_required
 def create_evaluation(request):
     evaluations = Evaluation.objects.all()
     if request.method == 'POST':
@@ -224,7 +232,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import redirect
 
-def course_application(request):
+@login_required
+def application(request):
     if request.method == 'POST':
         form = TrainingCreationForm(request.POST)
         if form.is_valid():
@@ -233,47 +242,34 @@ def course_application(request):
             application.save()
             form.save_m2m()  # Save the many-to-many relationships if any
             application.users.add(request.user)  # Associate the logged-in user with the application
-            return redirect('course_application_list')  # Redirect to the list view after successful submission
+            return redirect('employee_training_applications_list')  # Redirect to the list view after successful submission
     else:
         form = TrainingCreationForm()
     context = {'form': form}
-    return render(request, 'course_application.html', context)
+    return render(request, 'application.html', context)
 
-
-
-#Function to create a list view of pending applications
-#This view handles the list of applciations for the admin to view
-def course_application_list(request):
-    user = request.user
-    applications = TrainingApplication.objects.filter(usertraining__user=user)
-    total_applications = applications.count()
-    return render(request, 'course_application_list.html', {'applications': applications, 'total_applications': total_applications})
-
-#Function to show the details of the pending applications
-#This view handles the details of applications which are viewable for the admin
-def employee_training_application_details(request, id):
-    application = get_object_or_404(TrainingApplication, id=id)
-    return render(request, 'employee_training_application_details.html', {"application":application})
 
 #endregion
 
 
 #region Training Application
+@login_required
+def edit_training_application(request, application_id):
+    '''
+    View to edit a course application made by the user.
+    '''
+    user_training = get_object_or_404(UserTraining, training_id=application_id, user=request.user)
+    application = user_training.training
 
-def edit_training_application(request, app_id):
-    application = get_object_or_404(TrainingApplication, id=app_id)
-    if request.method == 'POST':
-        form = TrainingCreationForm(request.POST, instance=application)
-        if form.is_valid():
-            form.save()
-            return redirect('/profile/staff')
-        else:
-            print(form.errors)
-    else:
-        form = TrainingCreationForm(instance=application)
-    
-    return render(request, 'edit_application.html', {'form': form, 'application': application})
+    form = TrainingCreationForm(request.POST or None, instance=application)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('course_application_list.html', application_id=application.id)
 
+    context = {'application': application, 'form': form}
+    return render(request, 'edit_training_application.html', context)
+
+@login_required
 def delete_training_application(request, app_id):
     application = get_object_or_404(TrainingApplication, id=app_id)
     if request.method == 'POST':
@@ -282,25 +278,33 @@ def delete_training_application(request, app_id):
     
     return render(request, 'delete_application.html', {'application': application})
 
+@login_required
+@user_passes_test(lambda user: user.is_staff)
 def approve_application(request, app_id):
     application = get_object_or_404(TrainingApplication, id=app_id)
-    application.approval_status = True
+    application.application_status = 'approved'
     application.save()
     return redirect('training_application_details', app_id=app_id)
 
+@login_required
+@user_passes_test(lambda user: user.is_staff)
 def deny_application(request, app_id):
     application = get_object_or_404(TrainingApplication, id=app_id)
-    application.denial_status = True
+    application.application_status = 'denied'
     application.save()
     return redirect('training_application_details', app_id=app_id)
 
-def training_applications_list(request):
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def training_applications_list(request):    # Admin View
     applications = TrainingApplication.objects.all()
     total_applications = applications.count()
     return render(request, 'training_applications_list.html', {'applications': applications, "total_applications": total_applications})
 
 #Function to show the details of the pending applications
 #This view handles the details of applications which are viewable for the admin
+@login_required
+@user_passes_test(lambda user: user.is_staff)
 def training_application_details(request, app_id):
     application = get_object_or_404(TrainingApplication, id=app_id)
     return render(request, 'training_application_details.html', {'application': application})
@@ -312,17 +316,20 @@ def training_application_details(request, app_id):
 #region Employee Training Applications
 #Function to create a list view of pending applications
 #This view handles the list of applciations for the admin to view
+@login_required
 def employee_training_applications_list(request):
-    applications = TrainingApplication.objects.all()
+    applications = UserTraining.objects.filter(user=request.user).select_related('training')
     total_applications = applications.count()
     return render(request, 'employee_training_applications_list.html', {'applications': applications, "total_applications": total_applications})
 
 #Function to show the details of the pending applications
 #This view handles the details of applications which are viewable for the admin
+@login_required
 def employee_training_application_details(request, id):
     application = get_object_or_404(TrainingApplication, id=id)
     return render(request, 'employee_training_application_details.html', {"application":application})
 
+@login_required
 def evaluation_applications_list(request):
     evaluations = Evaluation.objects.all()
     total_evaluations = evaluations.count()

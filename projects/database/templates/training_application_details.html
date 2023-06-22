@@ -2,48 +2,80 @@
 ​
 {% block content %}
 ​
-<div class="container">
-​
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="display-4">
-                        Application Details
-                    </h1>
-                    <p>Name: {{ application.employee_name }}</p>
-                    <p>ID: {{ application.id }}</p>
-                    <p>Topics: {{ application.programme_name }}</p>
-                    <p>No. Days: {{ application.no_of_days }}</p>
-                    {% if application.approval_status %}
-                        <p>Status: Approved</p>
+<h2>Application Details</h2>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Employee Name</th>
+                <td>{{ application.employee_name }}</td>
+            </tr>
+            <tr>
+                <th>Programme Name</th>
+                <td>{{ application.programme_name }}</td>
+            </tr>
+            <tr>
+                <th>Training Provider</th>
+                <td>{{ application.training_provider }}</td>
+            </tr>
+            <tr>
+                <th>Employee Position</th>
+                <td>{{ application.employee_position }}</td>
+            </tr>
+            <!-- Add more fields as needed -->
+            <tr>
+                <th>Application Status</th>
+                <td>
+                    {% if application.application_status == 'approved' %}
+                        <span class="badge badge-success">Approved</span>
+                    {% elif application.application_status == 'denied' %}
+                        <span class="badge badge-danger">Denied</span>
                     {% else %}
-                        <p>Status: Pending</p>
+                        <span class="badge badge-primary">Pending Approval</span>
                     {% endif %}
-                    {% if application.denial_status %}
-                    <p>Status: Denied</p>
-                    {% endif %}
-                    <a href="" class="btn btn-light btn-outline-dark btn-block">
-                        All Applications
-                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Provide options for admin approval/denial -->
+    {% if request.user.is_staff %}
+        <form method="post" action="{% url 'approve_application' application.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary m-1">Approve</button>
+        </form>
+        <form id="denyForm{{ application.id }}" method="post" action="{% url 'deny_application' application.id %}">
+            {% csrf_token %}
+            <button type="button" class="btn btn-danger m-1" onclick="openModal('denyModal{{ application.id }}')">Deny</button>
+        </form>
+    {% endif %}
+    <a href="{% url 'training_applications_list' %}" class="btn btn-secondary m-1">Return to List</a>
+
+    <!-- Deny Application Modal -->
+    <div class="modal fade" id="denyModal{{ application.id }}" tabindex="-1" role="dialog" aria-labelledby="denyModal{{ application.id }}Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deny Application</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="denyForm" method="post" action="{% url 'deny_application' application.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="reason">Reason:</label>
+                            <textarea class="form-control" id="reason" name="reason" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Deny</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-​
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <!-- <a href="{% url 'approve_application' application.id %}" class="btn btn-primary">Approve</a>
-                    <a href="{% url 'deny_application' application.id %}" class="btn btn-danger">Deny</a> -->
-                    <!-- <a href="{% url 'edit_training_application' application.id %}" class="btn btn-primary">Edit Application</a>
-                    <a href="{% url 'delete_application' application.id %}" class="btn btn-primary">Delete Application</a> -->
-                </div>
-            </div>
-        </div>
-    </div>
-​
-</div>
+
+    <script>
+        function openModal(modalId) {
+            $("#" + modalId).modal('show');
+        }
+    </script>
 ​
 {% endblock content %}

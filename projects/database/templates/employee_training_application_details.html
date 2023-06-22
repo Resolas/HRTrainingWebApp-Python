@@ -2,37 +2,44 @@
 ​
 {% block content %}
 ​
-<div class="container">
-​
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="display-4">
-                        Application Details
-                    </h1>
-                    <p>Name: {{ application }}</p>
-                    <p>ID: {{ application.id }}</p>
-                    <p>Topics: {{ application.topics }}</p>
-                    <p>No. Days: {{ application.no_of_days }}</p>
-                    <a href="" class="btn btn-light btn-outline-dark btn-block">
-                        All Applications
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-​
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-​
-</div>
+<h2>Application Details</h2>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Employee Name</th>
+                <td>{{ application.employee_name }}</td>
+            </tr>
+            <tr>
+                <th>Programme Name</th>
+                <td>{{ application.programme_name }}</td>
+            </tr>
+            <tr>
+                <th>Training Provider</th>
+                <td>{{ application.training_provider }}</td>
+            </tr>
+            <tr>
+                <th>Employee Position</th>
+                <td>{{ application.employee_position }}</td>
+            </tr>
+            <!-- Add more fields as needed -->
+            <tr>
+                <th>Application Status</th>
+                <td>
+                    {% if application.application_status == 'approved' %}
+                        <span class="badge badge-success">Approved</span>
+                    {% elif application.application_status == 'denied' %}
+                        <span class="badge badge-danger">Denied</span>
+                    {% else %}
+                        <span class="badge badge-primary">Pending Approval</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Provide options for admin approval/denial -->
+    
+    <a href="{% url 'employee_training_applications_list' %}" class="btn btn-secondary m-1">Return to List</a>
+
 ​
 {% endblock content %}

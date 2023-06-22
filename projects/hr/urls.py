@@ -38,7 +38,7 @@ urlpatterns = [
 
     # path('profile/admin/application', views.application, name='application'),
 
-    path('profile/admin/training_applications_list/',views.training_applications_list, name='training_applications_list.html'),
+    path('profile/admin/training_applications_list/',views.training_applications_list, name='training_applications_list'),
 
     path('profile/admin/employeeregistration', views.register_view, name='employeeregistration'),
 
@@ -88,7 +88,7 @@ urlpatterns = [
 
     #region Training Course Application URLS
 
-    path('profile/staff/course_application/',views.course_application, name='course_application'),
+    path('profile/staff/course_application/',views.application, name='course_application'),
 
     # #URL path for pending applicaitons page
     # path('profile/staff/training_applications_list',views.training_applications_list, name='training_applications_list'),
@@ -100,8 +100,8 @@ urlpatterns = [
     # path('training_application_details/<int:app_id>/',views.training_application_details,
     #       name='training_application_details'),
     # #URL path for pending applicaitons page
-    path('profile/staff/course_application_list',views.course_application_list,
-          name='course_application_list'),
+     path('profile/staff/course_application_list',views.employee_training_applications_list,
+           name='course_application_list'),
     # #URL path for details of each application
     # path('employee_training_application_details/<int:id>/',views.employee_training_application_details,
         #   name='employee_training_application_details'),
@@ -123,7 +123,7 @@ urlpatterns = [
     #URL path for details of each application
     path('employee_training_application_details/<int:id>/',views.employee_training_application_details, name='employee_training_application_details'),
     #URL Path for editing training application
-    path('edit/<int:app_id>/', views.edit_training_application, name='edit_training_application'),
+    path('edit/<int:application_id>/', views.edit_training_application, name='edit_training_application'),
     #URL Path to delete application
     path('delete/<int:app_id>/', views.delete_training_application, name='delete_application'),
 

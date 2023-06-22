@@ -14,7 +14,7 @@
     </section>
     {% for app in applications %}
     <div class="card mt-3">
-        <a href="render detail view here">
+        <a href="{% url 'employee_training_application_details' app.id %}">
             <div class="card-body">
                 <div class="media">
                     <img src="https://bulma.io/images/placeholders/96x96.png"

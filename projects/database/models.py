@@ -108,8 +108,8 @@ class TrainingApplication(models.Model):
     programme_aims = models.TextField()
     programme_objectives = models.TextField()
     expected_outcome = models.TextField()
-    approval_status = models.BooleanField(null=True)
-    denial_status = models.BooleanField(null=True)
+    #approval_status = models.BooleanField(null=True)
+    #denial_status = models.BooleanField(null=True)
 
     bjc_contribution = models.TextField()
     emp_contribution = models.IntegerField()
