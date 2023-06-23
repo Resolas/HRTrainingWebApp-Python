@@ -59,6 +59,8 @@ class Evaluation(models.Model):
     ('Doctorate','Doctorate')
     )
 
+    training_application = models.ForeignKey('TrainingApplication', on_delete=models.CASCADE, related_name='evaluation_record')
+
     employee_name = models.CharField(max_length=45)
     job_title = models.CharField(max_length=45)
     training_course = models.TextField()
@@ -78,6 +80,8 @@ class Evaluation(models.Model):
     objective_met = models.IntegerField()
     time_sufficient = models.IntegerField()
     expectation_met = models.IntegerField()
+    completed = models.BooleanField(default=False)
+    programme_name = models.CharField(max_length=45, default='HELLO MY BOY')
 
     class Meta:
         db_table = 'evaluation'
@@ -94,7 +98,9 @@ class TrainingApplication(models.Model):
     )
     
     users = models.ManyToManyField(CustomUser, through='UserTraining')
-    employee_name = models.CharField(max_length=45, )
+    evaluation = models.OneToOneField(Evaluation, null=True, blank=True, on_delete=models.CASCADE, related_name='training_application_record')
+
+    employee_name = models.CharField(max_length=45)
     employee_position = models.CharField(max_length=45)
     length_of_service = models.IntegerField()
     application_date = models.DateField()

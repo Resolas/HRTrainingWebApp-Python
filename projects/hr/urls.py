@@ -21,6 +21,8 @@ from database import views
 app_name = 'database'
 
 urlpatterns = [
+    #region General Urls
+
     path('admin/', admin.site.urls),
     path('staff/', views.staff, name='staff'),
     path('', views.home, name='home'),
@@ -30,6 +32,7 @@ urlpatterns = [
     path('profile/',views.profile, name='profile'),
         path('success.html', views.success_view, name='success'),
 
+#endregion
 
     #region Admin Section
     path('profile/admin/', views.admin, name='admin'),
@@ -42,10 +45,8 @@ urlpatterns = [
 
     path('profile/admin/employeeregistration', views.register_view, name='employeeregistration'),
 
-    path('profile/admin/training_evaluations_list/',
-         views.training_evaluations_list, name='training_evaluations_list'),
-    path('profile/admin/training_evaluations_list/evaluationpart2/',
-          views.evaluationpart2, name='evaluationpart2'),
+    path('profile/admin/course_evaluation_list/',views.course_evaluation_list, name='training_evaluation_list'),
+    path('profile/admin/course_evaluation_list/<int:app_id>/',views.course_evaluation_details, name='evaluationpart2'),
 
     path('profile/admin/employeepersonaldetailspart1/', views.employeepersonaldetailspart1,
         name='employeepersonaldetailspart1'),
@@ -59,7 +60,7 @@ urlpatterns = [
     #path('profile/admin/reports/', views.test_table2,name='reports'),
     path('profile/admin/reports/', views.display_InvestmentReport, name='reports'),
 
-    path('profile/admin/create_evaluation/',
+    path('profile/admin/create_evaluation/<int:pk>/',
          views.create_evaluation, name='create_evaluation.html'),
 
     
@@ -82,11 +83,11 @@ urlpatterns = [
     path('profile/staff/completed_evaluation/',
         views.completed_evaluation, name='completed_evaluation'),
 
-    path('profile/staff/create_evaluation/', views.create_evaluation, name='create_evaluation'),
+    path('profile/staff/create_evaluation/<int:pk>/', views.create_evaluation, name='create_evaluation'),
 
     #endregion
 
-    #region Training Course Application URLS
+    #region Training Course Application Depracated URLS
 
     path('profile/staff/course_application/',views.application, name='course_application'),
 
@@ -108,7 +109,7 @@ urlpatterns = [
 
     #endregion
 
-    #region Chris URLs
+    #region Training/Course Application URLs
 
     # #URL path for pending applicaitons page
     # path('profile/staff/training_applications_list',views.training_applications_list, name='training_applications_list'),
@@ -126,6 +127,17 @@ urlpatterns = [
     path('edit/<int:application_id>/', views.edit_training_application, name='edit_training_application'),
     #URL Path to delete application
     path('delete/<int:app_id>/', views.delete_training_application, name='delete_application'),
+
+    #endregion
+
+
+    #region Evaluation Urls
+
+    path('profile/admin/course_evaluation_list/',views.course_evaluation_list, name='course_evaluation_list'),
+    path('profile/admin/course_evaluation_details/<int:app_id>/',views.course_evaluation_details, name='course_evaluation_details'),
+
+    path('profile/staff/employee_course_evaluation_list/',views.employee_course_evaluation_list, name='employee_course_evaluation_list'),
+    path('profile/staff/employee_course_evaluation_details/<int:app_id>/',views.employee_course_evaluation_details, name='employee_course_evaluation_details'),
 
     #endregion
 

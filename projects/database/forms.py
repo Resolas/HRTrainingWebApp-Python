@@ -42,19 +42,19 @@ class TrainingCreationForm(forms.ModelForm):
                   'employee_signed','administrator_signed']
         
         
-    widgets = {
-            'application_date': forms.DateInput(
-                attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;', 'value': date.today().strftime('%d/%m/%Y'), 'readonly': 'readonly'}
-            ),
-            'start_date': forms.DateInput(
-                attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;',
-                    'oninput': "this.value = this.value.replace(/[^0-9/]/g, '')"}
-            ),
-            'end_date': forms.DateInput(
-                attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;',
-                    'oninput': "this.value = this.value.replace(/[^0-9/]/g, '')"}
-            ),
-        }
+        widgets = {
+                'application_date': forms.DateInput(
+                    attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;', 'value': date.today().strftime('%d/%m/%Y'), 'readonly': 'readonly'}
+                ),
+                'start_date': forms.DateInput(
+                    attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;',
+                        'oninput': "this.value = this.value.replace(/[^0-9/]/g, '')"}
+                ),
+                'end_date': forms.DateInput(
+                    attrs={'placeholder': 'DD/MM/YYYY', 'style': 'color: black;',
+                        'oninput': "this.value = this.value.replace(/[^0-9/]/g, '')"}
+                ),
+            }
         
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)  # Pop the 'request' argument from kwargs
@@ -93,6 +93,7 @@ class EvaluationForm(forms.ModelForm):
     class Meta:
         model = Evaluation
         fields = '__all__'
+        exclude = ('training_application', 'completed')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

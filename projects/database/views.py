@@ -6,8 +6,9 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.decorators import user_passes_test, login_required
+from datetime import date
 #from database.views import get_404
-from .models import InvestmentReport, Evaluation, TrainingApplication, CustomUser, UserTraining
+from .models import InvestmentReport, Evaluation, TrainingApplication, CustomUser, UserTraining, UserEvaluation
 from .forms import CustomUserCreationForm, ChangePasswordForm, TrainingCreationForm, EvaluationForm
 
 # Create your views here.
@@ -142,12 +143,6 @@ def signout(request):
 def training_evaluations_list(request):
     return render(request, 'training_evaluations_list.html')
 
-def evaluationpart1(request):
-    return render(request, 'evaluationpart1.html')
-
-def evaluationpart2(request):
-    return render(request, 'evaluationpart2.html')
-
 def admin(request):
     return render(request, 'admin.html')
 
@@ -209,17 +204,38 @@ def pendingapplication(request):
     return render(request, 'pendingapplication.html')
 
 @login_required
-def create_evaluation(request):
-    evaluations = Evaluation.objects.all()
+def create_evaluation(request, pk):
+    course = get_object_or_404(TrainingApplication, pk=pk)
+    training_application_instance = TrainingApplication.objects.get(pk=pk)
+
     if request.method == 'POST':
         form = EvaluationForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Handle successful form submission
+            evaluation = form.save(commit=False)
+            evaluation.employee_id = request.user.id
+            evaluation.training_application = course
+            evaluation.completed = True
+            evaluation.save()
+
+            # Update the evaluation field in the TrainingApplications instance
+            course.evaluation = evaluation
+            course.save()
+
+            # Debug prints
+            print(f"Course ID: {course.id}")
+            print(f"Evaluation ID: {evaluation.id}")
+            print(f"Evaluation Completed: {evaluation.completed}")
+
+            return redirect('employee_course_evaluation_list')
     else:
-        form = EvaluationForm()
-    context = {'form': form, 'evaluations':evaluations}
-    return render(request, 'create_evaluation.html', context)
+        form = EvaluationForm(initial={'employee_id': request.user.id})
+
+    return render(request, 'create_evaluation.html', {'form': form, 'course': course, 'training_application_instance': training_application_instance})
+
+
+
+
+
 
 
 
@@ -252,7 +268,7 @@ def application(request):
 #endregion
 
 
-#region Training Application
+#region Admin Training Application
 @login_required
 def edit_training_application(request, application_id):
     '''
@@ -332,16 +348,16 @@ def employee_training_application_details(request, id):
     application = get_object_or_404(TrainingApplication, id=id)
     return render(request, 'employee_training_application_details.html', {"application":application})
 
-@login_required
-def evaluation_applications_list(request):
-    evaluations = Evaluation.objects.all()
-    total_evaluations = evaluations.count()
-    return render(request, 'training_evaluations_list.html', {'evaluations': evaluations, "total_evaluations": total_evaluations})
+# @login_required
+# def evaluation_applications_list(request):
+#     evaluations = Evaluation.objects.all()
+#     total_evaluations = evaluations.count()
+#     return render(request, 'course_evaluation_list.html', {'evaluations': evaluations, "total_evaluations": total_evaluations})
 
 #endregion
 
 #region Evaluation Form
-
+    # This creates the evaluation form on the employee side
 def completed_evaluation(request, evaluation_id):
     evaluation = get_object_or_404(Evaluation, id=evaluation_id)
 
@@ -357,5 +373,55 @@ def completed_evaluation(request, evaluation_id):
     context = {'form': form}
     return render(request, 'completed_evaluation.html', context)
 
+
+#region Admin Evaluation
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def course_evaluation_details(request, app_id):
+    evaluation = get_object_or_404(Evaluation, id=app_id)
+    return render(request, 'course_evaluation_details.html', {'evaluation': evaluation})
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def course_evaluation_list(request):    # Admin View
+    evaluations = Evaluation.objects.all()
+    total_evaluations = evaluations.count()
+    return render(request, 'course_evaluation_list.html', {'evaluations': evaluations, "total_evaluations": total_evaluations})
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def course_evaluation_details(request, app_id):
+    evaluation = get_object_or_404(Evaluation, id=app_id)
+    return render(request, 'course_evaluation_details.html', {'evaluation': evaluation})
+
+#endregion
+
+#region Employee Evaluation
+
+
+# @login_required
+# def employee_course_evaluation_list(request):
+#     evaluations = UserEvaluation.objects.filter(user=request.user).select_related('evaluation') # foreign key
+#     total_evaluations = evaluations.count()
+#     return render(request, 'employee_course_evaluation_list.html', {'evaluations': evaluations, "total_evaluations": total_evaluations})
+
+# Evaluation functionality
+
+def employee_course_evaluation_list(request):
+    # Retrieve evaluations for the logged-in user
+    user = request.user
+    courses = TrainingApplication.objects.filter(end_date__lte=date.today(), users=user)
+    print(courses)
+    # for course in courses:
+    #     print(course.id, course.programme_name, course.evaluation.completed)
+    return render(request, 'employee_course_evaluation_list.html', {'courses': courses})
+
+@login_required
+def employee_course_evaluation_details(request, app_id):
+    evaluation = get_object_or_404(Evaluation, id=app_id)
+    return render(request, 'employee_course_evaluation_details.html', {"evaluation":evaluation})
+
+#endregion
 
 #endregion

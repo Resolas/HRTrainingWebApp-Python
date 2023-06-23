@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+​
+{% block content %}
+​
+<h2>Evaluation Details</h2>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Employee Name</th>
+                <td>{{ evaluation.employee_name }}</td>
+            </tr>
+            <tr>
+                <th>Programme Name</th>
+                <td>{{ evaluation.programme_name }}</td>
+            </tr>
+            <tr>
+                <th>Training Provider</th>
+                <td>{{ evaluation.training_provider }}</td>
+            </tr>
+            <tr>
+                <th>Employee Position</th>
+                <td>{{ evaluation.employee_position }}</td>
+            </tr>
+        </tbody>
+    </table>
+ 
+    <a href="{% url 'course_evaluation_list' %}" class="btn btn-secondary m-1">Return to List</a>
+​
+{% endblock content %}

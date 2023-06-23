@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Employee course evaluation list</h2>
+        {% for eval in evaluations %}
+            <div class="card mb-4">
+                <div class="card-body bg-light">
+                    <h4 class="card-title">Applicant Name: {{ eval.employee_name }}</h4>
+                    <div class="card-body">
+                        <div class="container">
+            
+                                <h5 class="card-title">{{ eval.job_title }}</h5>
+                                <p class="card-text">{{ eval.training_provider }}</p>
+
+                            <a href="{% url 'course_evaluation_details' eval.id %}" class="btn btn-success">View Evaluation</a>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No evaluations found.</p>
+        {% endfor %}
+
+    </div>
+{% endblock %}
