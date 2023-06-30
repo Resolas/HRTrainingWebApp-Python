@@ -19,12 +19,12 @@ This is an internal use web application for use by **Human Resources** administr
 
 
 **Team members/Contributors**
-- Munfung - 
-- Chris -
-- Liam -
-- Marc -
-- Fazilat -
-- Alwin - 
+- Munfung - https://github.com/Resolas
+- Chris - https://github.com/Chris-Slattery
+- Liam - https://github.com/theprogrammer0
+- Marc - https://github.com/m4csam1l1an
+- Fazilat - https://github.com/ifshs
+- Alwin - https://github.com/alwinjohny
 
 
 
