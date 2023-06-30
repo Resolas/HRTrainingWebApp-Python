@@ -13,3 +13,20 @@ database/migrations
 4. python manage.py runserver
 
 Done
+
+**Web Application Overview**
+This is an internal use web application for use by **Human Resources** administrator and their employees to upskill and apply for a training course, to streamline workflow for the HR admin to by automating certain processes.
+
+
+**Team members/Contributors**
+- Munfung - 
+- Chris -
+- Liam -
+- Marc -
+- Fazilat -
+- Alwin - 
+
+
+
+**User Manual**
+
