@@ -58,5 +58,26 @@ This project is not yet completed and will be handed over to other teams for fur
 
     Install:
     Bootstrap - pip install crispy-bootstrap4
-    
 
+**What Works/Doesn't**
+    
+    What works:
+    Login System
+    Register Employee
+    Create New Application
+    Evaluation Form
+    Change User Password (Rudimentary)
+
+    What doesn't work/exist:
+    Reports
+    Evaluation Pie/Bar Charts
+    No Autocomplete in Forms
+    Correct Details Required in Applications and Evaluations
+
+<img width="576" alt="Admin Screen Functions" src="https://github.com/Resolas/HRTrainingWebApp-Python/assets/64108044/d2798c71-6bee-4728-925d-af09945b91db">
+
+<img width="576" alt="Employee Screen Functions" src="https://github.com/Resolas/HRTrainingWebApp-Python/assets/64108044/fe0ca96b-0021-46d4-b9b9-0656137cbdb7">
+
+
+
+    
