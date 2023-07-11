@@ -21,9 +21,10 @@ This project is not yet completed and will be handed over to other teams for fur
 
 
 
-**User Manual**
+**User Manual/Guides**
 
 
+[Start a new Django project cheat sheet.docx](https://github.com/Resolas/HRTrainingWebApp-Python/files/12013876/Start.a.new.Django.project.cheat.sheet.docx)
 
 
 
@@ -47,8 +48,15 @@ This project is not yet completed and will be handed over to other teams for fur
 
 **Setup Notes**
 
-    Setup
+    Text Editor Used:
+    Visual Studio Code
 
+    Version:
     Python Version - Python 3.11.1
+
+    Pip Version - pip 23.1.2
+
+    Install:
+    Bootstrap - pip install crispy-bootstrap4
     
 
